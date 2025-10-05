@@ -4,10 +4,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background-color:var(--bg-color);color:var(--text-main);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .hidden{display:none !important}
-
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 15px rgba(59,130,246,0.4)}50%{transform:scale(1.05);box-shadow:0 0 25px rgba(59,130,246,0.7)}}
-
 #welcome-screen{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;text-align:center;padding:2rem;animation:fadeIn 1.5s ease-in-out}
 .welcome-content{margin-bottom:2rem}
 .welcome-title{font-size:5rem;font-weight:700;letter-spacing:-.05em;background:linear-gradient(45deg,#fff,#a7c5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -56,96 +54,19 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--prim
 .color-swatch{width:2rem;height:2rem;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s}
 .color-swatch:hover{transform:scale(1.1)}
 .color-swatch.active{border-color:white;box-shadow:0 0 10px var(--accent-color)}
-#chart-panel{position:fixed;bottom:8rem;right:1rem;width:350px;z-index:50;padding:1rem}
+#chart-panel{padding:1rem;width:250px}
 #chart-panel label{font-size:.875rem;font-weight:500;color:var(--accent-color)}
 .chart-container{height:160px;margin-top:.5rem}
 #timeline-container{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:50;width:100%;max-width:64rem;padding:.5rem 1rem}
-.timeline-wrapper{position:relative;display:flex;justify-content:space-between;align-items:flex-start;padding-top:.5rem}
-.timeline-wrapper .timeline-line{position:absolute;top:1.25rem;left:2rem;right:2rem;height:2px;background-color:#334155;z-index:0}
-.timeline-point{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;background:none;border:none;cursor:pointer;padding:0 .25rem}
-.timeline-point .dot{width:1rem;height:1rem;border-radius:50%;border:3px solid #475569;background-color:var(--bg-color);margin-bottom:.75rem;transition:all .2s}
+.timeline-wrapper{position:relative;display:flex;justify-content:flex-start;align-items:flex-start;padding-top:.5rem;overflow-x:auto;padding-bottom:1rem}
+.timeline-wrapper::-webkit-scrollbar{height:4px}
+.timeline-wrapper::-webkit-scrollbar-thumb{background:var(--primary-color);border-radius:2px}
+.timeline-wrapper .timeline-line{position:absolute;top:1.25rem;left:2rem;height:2px;min-width:1500px;background-color:#334155;z-index:0}
+.timeline-point{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;background:none;border:none;cursor:pointer;padding:0 1.5rem}
+.timeline-point .dot{width:1rem;height:1rem;border-radius:50%;border:3px solid #475569;background-color:var(--bg-color);margin-bottom:.75rem;transition:all .2s;flex-shrink:0}
 .timeline-point:hover .dot{border-color:var(--accent-color)}
 .timeline-point.active .dot{border-color:var(--primary-color);background-color:var(--accent-color);transform:scale(1.2)}
 .timeline-point .event-description{font-size:.875rem;font-weight:600;color:var(--text-secondary);transition:color .2s;white-space:nowrap}
 .timeline-point.active .event-description{color:white}
 .timeline-point .event-label{font-size:.75rem;color:#64748b;white-space:nowrap}
-
-
-
-/* Se aplica a pantallas con un ancho máximo de 768px */
-@media (max-width: 768px) {
-
-    /* --- PANELES PRINCIPALES --- */
-
-    /* El panel de control ahora ocupa todo el ancho y está arriba */
-    #dashboard-panel {
-        width: auto;
-        left: 0.5rem;
-        right: 0.5rem;
-        top: 0.5rem;
-        bottom: auto; /* Anula la posición inferior si la tuviera */
-        max-height: 50vh; /* Permite scroll si el contenido es mucho */
-        overflow-y: auto;
-    }
-
-    /* La gráfica la movemos para que no estorbe */
-    #chart-panel {
-        display: none; /* En móvil, la gráfica puede ocupar mucho espacio. La ocultamos. */
-    }
-
-    /* El contenedor del logo e info se mantiene, pero con ajustes */
-    .top-left-container {
-        top: 0.5rem;
-        left: 0.5rem;
-    }
-    
-    /* Hacemos más pequeño el panel de información */
-    #info-panel {
-        padding: 0.5rem;
-        width: 200px;
-    }
-    #info-panel h3 {
-        font-size: 0.875rem;
-    }
-    #info-panel .info-grid {
-        font-size: 0.8rem;
-    }
-
-
-    /* --- LÍNEA DE TIEMPO --- */
-
-    #timeline-container {
-        left: 0.5rem;
-        right: 0.5rem;
-        bottom: 0.5rem;
-        width: auto;
-        transform: translateX(0);
-        padding: 0.5rem;
-    }
-
-    /* Hacemos que la línea de tiempo tenga scroll horizontal si no cabe */
-    .timeline-wrapper {
-        justify-content: flex-start; /* Alinea los items al inicio */
-        overflow-x: auto;
-        padding-bottom: 0.5rem; /* Espacio para la barra de scroll */
-    }
-
-    .timeline-point {
-        padding: 0 0.75rem; /* Más espacio entre puntos */
-    }
-
-    .timeline-wrapper .timeline-line {
-        width: 150%; /* Asegura que la línea sea lo suficientemente larga */
-    }
-
-    /* --- PANTALLA DE BIENVENIDA --- */
-    
-    .welcome-title {
-        font-size: 3rem; /* Título más pequeño para móviles */
-    }
-
-    .welcome-subtitle {
-        font-size: 1rem;
-    }
-
-}
+@media (max-width:768px){#dashboard-panel{width:auto;left:.5rem;right:.5rem;top:.5rem;bottom:auto;max-height:50vh;overflow-y:auto}#chart-panel{display:none}.top-left-container{top:.5rem;left:.5rem}#info-panel{padding:.5rem;width:200px}#info-panel h3{font-size:.875rem}#info-panel .info-grid{font-size:.8rem}#timeline-container{left:.5rem;right:.5rem;bottom:.5rem;width:auto;transform:translateX(0);padding:.5rem}.timeline-wrapper{justify-content:flex-start;overflow-x:auto;padding-bottom:.5rem}.timeline-point{padding:0 .75rem}.timeline-wrapper .timeline-line{width:200%}.welcome-title{font-size:3rem}.welcome-subtitle{font-size:1rem}}

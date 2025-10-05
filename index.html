@@ -52,6 +52,12 @@
                 </div>
                 <p class="info-note">*Volumen estimado asumiendo 0.5m de profundidad.</p>
             </div>
+            <div id="chart-panel" class="panel">
+                <label id="chart-label">Resumen del Evento</label>
+                <div class="chart-container">
+                    <canvas id="dashboard-chart"></canvas>
+                </div>
+            </div>
         </div>
 
         <div id="loading-indicator" class="panel hidden">Cargando...</div>
@@ -75,15 +81,9 @@
             </div>
             <div class="visualization-controls">
                 <div class="control-group"><label for="opacity-slider">Opacidad (<span id="opacity-value">75</span>%)</label><input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.75"></div>
+                <button id="toggle-labels-btn" class="btn-secondary">Ocultar Etiquetas</button>
                 <button id="toggle-border-btn" class="btn-secondary">Mostrar Borde de Tabasco</button>
                 <button id="toggle-3d-btn" class="btn-primary">Cambiar a Vista 2D</button>
-            </div>
-        </div>
-
-        <div id="chart-panel" class="panel">
-            <label id="chart-label">Resumen del Evento</label>
-            <div class="chart-container">
-                <canvas id="dashboard-chart"></canvas>
             </div>
         </div>
 
