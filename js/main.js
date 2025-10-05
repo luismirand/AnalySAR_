@@ -33,6 +33,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         dom.opacitySlider.value = state.opacity;
         dom.opacityValue.textContent = Math.round(state.opacity * 100);
 
+        dom.enterAppBtn.addEventListener('click', () => {
+            dom.welcomeScreen.style.transition = 'opacity 0.5s ease-out';
+            dom.welcomeScreen.style.opacity = 0;
+            
+            setTimeout(() => {
+                dom.welcomeScreen.classList.add('hidden');
+                dom.mapApp.classList.remove('hidden');
+                
+                startMapApplication();
+            }, 500);
+        });
+    };
+
+    const startMapApplication = () => {
         initEventListeners();
         initMap();
         initTimeline();
@@ -56,22 +70,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         map = new mapboxgl.Map({
             container: 'map-container',
             style: `mapbox://styles/mapbox/${state.mapStyle}`,
-            center: [-90, 25], // Vista inicial desde el espacio
-            zoom: 2, // Zoom inicial alejado
+            center: [-90, 25],
+            zoom: 2,
             antialias: true,
         });
 
         map.on('load', () => {
             addMapLayers();
             
-            // Animación de Vuelo Inicial
             map.flyTo({
                 center: [-92.93, 17.84],
-                zoom: 8.5,
-                pitch: 60,
-                bearing: -17.6,
-                duration: 6000,
-                essential: true,
+                zoom: 8.5, pitch: 60, bearing: -17.6,
+                duration: 6000, essential: true,
             });
         });
         
@@ -95,7 +105,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         map.addSource('agua-source', { type: 'geojson', data: dataPath });
         
-        // Capa principal del agua (sin la capa de brillo)
         map.addLayer({
             id: 'agua-fill-layer', type: 'fill-extrusion', source: 'agua-source',
             paint: { 'fill-extrusion-color': state.waterColor, 'fill-extrusion-height': 500, 'fill-extrusion-base': 0, 'fill-extrusion-opacity': state.opacity }
@@ -125,7 +134,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const initEventListeners = () => {
-        dom.enterAppBtn.addEventListener('click', () => { dom.welcomeScreen.style.transition = 'opacity 0.5s ease-out'; dom.welcomeScreen.style.opacity = 0; setTimeout(() => { dom.welcomeScreen.classList.add('hidden'); dom.mapApp.classList.remove('hidden'); }, 500); });
         dom.homeLink.addEventListener('click', (e) => { e.preventDefault(); dom.mapApp.style.transition = 'opacity 0.5s ease-out'; dom.mapApp.style.opacity = 0; setTimeout(() => { window.location.reload(); }, 500); });
         dom.opacitySlider.addEventListener('input', (e) => { state.opacity = parseFloat(e.target.value); dom.opacityValue.textContent = Math.round(state.opacity * 100); if (map.getLayer('agua-fill-layer')) { map.setPaintProperty('agua-fill-layer', 'fill-extrusion-opacity', state.opacity); } });
         dom.toggle3DBtn.addEventListener('click', () => { state.is3D = !state.is3D; if (state.is3D) { map.setTerrain({ source: 'mapbox-dem', exaggeration: 2.5 }); map.easeTo({ pitch: 60, duration: 1000 }); dom.toggle3DBtn.textContent = 'Cambiar a Vista 2D'; } else { map.easeTo({ pitch: 0, bearing: 0, duration: 1000 }); dom.toggle3DBtn.textContent = 'Cambiar a Vista 3D'; setTimeout(() => map.setTerrain(null), 1000); } });
