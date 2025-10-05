@@ -1,4 +1,23 @@
-Document Link: https://docs.google.com/document/d/1WDu87pxi4sKpKesoL0GBPMWyg1R9JBwowFwL9rcU-yY/edit?usp=sharing
+# 🛰️ Through the Radar Looking Glass: Revealing Earth Processes with SAR  
+### Team MicroOndeados (Team 21)
+
+We are **Team MicroOndeados (Team 21)**, a multidisciplinary group of students and developers passionate about radar technology, Earth observation, and environmental resilience.  
+Our goal is to harness **Synthetic Aperture Radar (SAR)** data to uncover and visualize Earth’s hidden processes — revealing what the naked eye can’t see, even through clouds and storms.  
+
+This project was developed as part of the **2025 NASA Space Apps Challenge**, under the global challenge **“Through the Radar Looking Glass: Revealing Earth Processes with SAR.”**  
+Our focus is on using open SAR data and cloud-based analysis tools to monitor and understand **flood dynamics in Tabasco, Mexico**, an area heavily affected by recurring extreme rainfall and overflow events.
+
+### 👥 Team Members
+- **Luis Alberto Miranda Díaz**  
+- **Edson Adán López Carbajal**  
+- **María José Barragán Rosado**  
+- **Mauro Acuña Olivarría**  
+- **Armando Ilianov Lizárraga Duarte**  
+- **José Miguel Castro Cázarez**
+
+---
+
+
 
  # 1. Introduction
 
@@ -136,6 +155,9 @@ This combination enables a fully client-side and open-data workflow, requiring n
 By merging *satellite radar data* with *web-based visualization, AnalySAR promotes **environmental transparency and public awareness. It demonstrates that even small teams can build scientifically relevant, high-impact tools using open technology. Beyond Tabasco, the methodology can be adapted for **other flood-prone areas worldwide, contributing to **climate resilience* and *sustainable decision-making*.
 
 ---
+## Documentation 
+Document Link: https://docs.google.com/document/d/1WDu87pxi4sKpKesoL0GBPMWyg1R9JBwowFwL9rcU-yY/edit?usp=sharing
+
 ## Deployment
 
 https://analy-sar.vercel.app/
@@ -160,4 +182,5 @@ https://analy-sar.vercel.app/
 6. *Chart.js.* Open-Source JavaScript Data Visualization Library.  
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
+
 
