@@ -70,3 +70,33 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--prim
 .timeline-point.active .event-description{color:white}
 .timeline-point .event-label{font-size:.75rem;color:#64748b;white-space:nowrap}
 @media (max-width:768px){#dashboard-panel{width:auto;left:.5rem;right:.5rem;top:.5rem;bottom:auto;max-height:50vh;overflow-y:auto}#chart-panel{display:none}.top-left-container{top:.5rem;left:.5rem}#info-panel{padding:.5rem;width:200px}#info-panel h3{font-size:.875rem}#info-panel .info-grid{font-size:.8rem}#timeline-container{left:.5rem;right:.5rem;bottom:.5rem;width:auto;transform:translateX(0);padding:.5rem}.timeline-wrapper{justify-content:flex-start;overflow-x:auto;padding-bottom:.5rem}.timeline-point{padding:0 .75rem}.timeline-wrapper .timeline-line{width:200%}.welcome-title{font-size:3rem}.welcome-subtitle{font-size:1rem}}
+
+
+.project-info-container a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    display: inline-flex; 
+    align-items: center;
+}
+
+.project-info-container a:hover {
+    color: var(--accent-color);
+}
+
+.linkedin-logo {
+    width: 1rem;
+    height: 1rem;
+    fill: currentColor; 
+    margin-left: 0.5rem;
+}
+
+h4 + ul a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-decoration-color: var(--panel-border);
+}
+
+h4 + ul a:hover {
+    text-decoration-color: var(--accent-color);
+}

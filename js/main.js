@@ -1,73 +1,26 @@
 document.addEventListener('DOMContentLoaded', async () => {
 
     if (typeof MAPBOX_TOKEN === 'undefined' || MAPBOX_TOKEN === "") {
-        alert("Error: La clave de Mapbox no está definida...");
+        alert("Mapbox token is not defined. Please ensure your 'config.js' file exists and is loaded correctly.");
         return;
     }
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
+    // --- LISTA COMPLETA DE EVENTOS POTENCIALES ---
     const POTENTIAL_EVENTS = [
-        // --- Año 2014 ---
-        { year: 2014, stage: 'Antes', label: 'Sept 2014', description: 'Pre-Evento 2014' },
-        { year: 2014, stage: 'Durante', label: 'Oct 2014', description: 'Evento 2014' },
-        { year: 2014, stage: 'Después', label: 'Nov 2014', description: 'Post-Evento 2014' },
-
-        // --- Año 2015 ---
-        { year: 2015, stage: 'Antes', label: 'Oct 2015', description: 'Pre-Evento 2015' },
-        { year: 2015, stage: 'Durante', label: 'Nov 2015', description: 'Evento 2015' },
-        { year: 2015, stage: 'Después', label: 'Dic 2015', description: 'Post-Evento 2015' },
-
-        // --- Año 2016 ---
-        { year: 2016, stage: 'Antes', label: 'Sept 2016', description: 'Pre-Evento 2016' },
-        { year: 2016, stage: 'Durante', label: 'Oct 2016', description: 'Evento 2016' },
-        { year: 2016, stage: 'Después', label: 'Nov 2016', description: 'Post-Evento 2016' },
-        
-        // --- Año 2017 ---
-        { year: 2017, stage: 'Antes', label: 'Sept 2017', description: 'Pre-Evento 2017' },
-        { year: 2017, stage: 'Durante', label: 'Oct 2017', description: 'Evento 2017' },
-        { year: 2017, stage: 'Después', label: 'Nov 2017', description: 'Post-Evento 2017' },
-
-        // --- Año 2018 ---
-        { year: 2018, stage: 'Antes', label: 'Sept 2018', description: 'Pre-Evento 2018' },
-        { year: 2018, stage: 'Durante', label: 'Oct 2018', description: 'Evento 2018' },
-        { year: 2018, stage: 'Después', label: 'Nov 2018', description: 'Post-Evento 2018' },
-
-        // --- Año 2019 ---
-        { year: 2019, stage: 'Antes', label: 'Jul 2019', description: 'Pre-Evento 2019' },
-        { year: 2019, stage: 'Durante', label: 'Oct-Nov 2019', description: 'Evento 2019' },
-        { year: 2019, stage: 'Después', label: 'Dic 2019', description: 'Post-Evento 2019' },
-        
-        // --- Año 2020 ---
-        { year: 2020, stage: 'Antes', label: 'Sept 2020', description: 'Pre-Inundación' },
-        { year: 2020, stage: 'Durante', label: 'Oct-Nov 2020', description: 'Inundación Grave' },
-        { year: 2020, stage: 'Después', label: 'Dic 2020', description: 'Post-Inundación' },
-
-        // --- Año 2021 ---
-        { year: 2021, stage: 'Antes', label: 'Oct 2021', description: 'Pre-Evento 2021' },
-        { year: 2021, stage: 'Durante', label: 'Nov 2021', description: 'Evento 2021' },
-        { year: 2021, stage: 'Después', label: 'Dic 2021', description: 'Post-Evento 2021' },
-        
-        // --- Año 2022 ---
-        { year: 2022, stage: 'Antes', label: 'Sept 2022', description: 'Pre-Evento 2022' },
-        { year: 2022, stage: 'Durante', label: 'Oct 2022', description: 'Evento 2022' },
-        { year: 2022, stage: 'Después', label: 'Nov 2022', description: 'Post-Evento 2022' },
-
-        // --- Año 2023 ---
-        { year: 2023, stage: 'Antes', label: 'Oct 2023', description: 'Pre-Evento 2023' },
-        { year: 2023, stage: 'Durante', label: 'Nov-Dic 2023', description: 'Evento 2023' },
-        { year: 2023, stage: 'Después', label: 'Ene 2024', description: 'Post-Evento 2023' },
-
-        // --- Año 2024 ---
-        { year: 2024, stage: 'Antes', label: 'Sept 2024', description: 'Pre-Evento 2024' },
-        { year: 2024, stage: 'Durante', label: 'Oct 2024', description: 'Evento 2024' },
-        { year: 2024, stage: 'Después', label: 'Nov 2024', description: 'Post-Evento 2024' },
-
-        // --- Año 2025 ---
-        { year: 2025, stage: 'Antes', label: 'Sept 2025', description: 'Pre-Evento 2025' },
-        { year: 2025, stage: 'Durante', label: 'Oct 2025', description: 'Evento 2025' },
-        { year: 2025, stage: 'Después', label: 'Nov 2025', description: 'Post-Evento 2025' },
+        { year: 2014, stage: 'Antes', label: 'Sep 2014', description: '2014 Pre-Event' }, { year: 2014, stage: 'Durante', label: 'Oct 2014', description: '2014 Event' }, { year: 2014, stage: 'Después', label: 'Nov 2014', description: '2014 Post-Event' },
+        { year: 2015, stage: 'Antes', label: 'Oct 2015', description: '2015 Pre-Event' }, { year: 2015, stage: 'Durante', label: 'Nov 2015', description: '2015 Event' }, { year: 2015, stage: 'Después', label: 'Dec 2015', description: '2015 Post-Event' },
+        { year: 2016, stage: 'Antes', label: 'Sep 2016', description: '2016 Pre-Event' }, { year: 2016, stage: 'Durante', label: 'Oct 2016', description: '2016 Event' }, { year: 2016, stage: 'Después', label: 'Nov 2016', description: '2016 Post-Event' },
+        { year: 2017, stage: 'Antes', label: 'Sep 2017', description: '2017 Pre-Event' }, { year: 2017, stage: 'Durante', label: 'Oct 2017', description: '2017 Event' }, { year: 2017, stage: 'Después', label: 'Nov 2017', description: '2017 Post-Event' },
+        { year: 2018, stage: 'Antes', label: 'Sep 2018', description: '2018 Pre-Event' }, { year: 2018, stage: 'Durante', label: 'Oct 2018', description: '2018 Event' }, { year: 2018, stage: 'Después', label: 'Nov 2018', description: '2018 Post-Event' },
+        { year: 2019, stage: 'Antes', label: 'Jul 2019', description: '2019 Pre-Event' }, { year: 2019, stage: 'Durante', label: 'Oct-Nov 2019', description: '2019 Event' }, { year: 2019, stage: 'Después', label: 'Dec 2019', description: '2019 Post-Event' },
+        { year: 2020, stage: 'Antes', label: 'Sep 2020', description: 'Pre-Flood' }, { year: 2020, stage: 'Durante', label: 'Oct-Nov 2020', description: 'Major Flood' }, { year: 2020, stage: 'Después', label: 'Dec 2020', description: 'Post-Flood' },
+        { year: 2021, stage: 'Antes', label: 'Oct 2021', description: '2021 Pre-Event' }, { year: 2021, stage: 'Durante', label: 'Nov 2021', description: '2021 Event' }, { year: 2021, stage: 'Después', label: 'Dec 2021', description: '2021 Post-Event' },
+        { year: 2022, stage: 'Antes', label: 'Sep 2022', description: '2022 Pre-Event' }, { year: 2022, stage: 'Durante', label: 'Oct 2022', description: '2022 Event' }, { year: 2022, stage: 'Después', label: 'Nov 2022', description: '2022 Post-Event' },
+        { year: 2023, stage: 'Antes', label: 'Oct 2023', description: '2023 Pre-Event' }, { year: 2023, stage: 'Durante', label: 'Nov-Dec 2023', description: '2023 Event' }, { year: 2023, stage: 'Después', label: 'Jan 2024', description: '2023 Post-Event' },
+        { year: 2024, stage: 'Antes', label: 'Sep 2024', description: '2024 Pre-Event' }, { year: 2024, stage: 'Durante', label: 'Oct 2024', description: '2024 Event' }, { year: 2024, stage: 'Después', label: 'Nov 2024', description: '2024 Post-Event' },
+        { year: 2025, stage: 'Antes', label: 'Sep 2025', description: '2025 Pre-Event' }, { year: 2025, stage: 'Durante', label: 'Oct 2025', description: '2025 Event' }, { year: 2025, stage: 'Después', label: 'Nov 2025', description: '2025 Post-Event' },
     ];
-
     const AREA_TABASCO_KM2 = 24738;
     let availableEvents = [];
     const state = {
@@ -81,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const initializeApp = async () => {
         await findAvailableData();
-        if (availableEvents.length === 0) { alert("No se encontraron archivos de datos en /data/."); return; }
+        if (availableEvents.length === 0) { alert("No data files found in /data/ folder."); return; }
         
         dom.enterAppBtn.addEventListener('click', () => {
             dom.welcomeScreen.style.transition = 'opacity 0.5s ease-out';
@@ -120,11 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         map = new mapboxgl.Map({
             container: 'map-container',
             style: `mapbox://styles/mapbox/${state.mapStyle}`,
-            center: [-92.93, 17.84], // <-- INICIA DIRECTO EN TABASCO
-            zoom: 8.5,
-            pitch: 45, // <-- VISTA 3D INICIAL SUTIL
-            bearing: -17.6,
-            antialias: true,
+            center: [-92.93, 17.84], zoom: 8.5, pitch: 45, bearing: -17.6, antialias: true,
         });
 
         map.on('load', () => {
@@ -196,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const initEventListeners = () => {
         dom.homeLink.addEventListener('click', (e) => { e.preventDefault(); dom.mapApp.style.transition = 'opacity 0.5s ease-out'; dom.mapApp.style.opacity = 0; setTimeout(() => { window.location.reload(); }, 500); });
         dom.opacitySlider.addEventListener('input', (e) => { state.opacity = parseFloat(e.target.value); dom.opacityValue.textContent = Math.round(state.opacity * 100); if (map.getLayer('agua-fill-layer')) { map.setPaintProperty('agua-fill-layer', 'fill-extrusion-opacity', state.opacity); } });
-        dom.toggle3DBtn.addEventListener('click', () => { state.is3D = !state.is3D; if (state.is3D) { map.setTerrain({ source: 'mapbox-dem', exaggeration: 2.5 }); map.easeTo({ pitch: 45, duration: 1000 }); dom.toggle3DBtn.textContent = 'Cambiar a Vista 2D'; } else { map.easeTo({ pitch: 0, bearing: 0, duration: 1000 }); dom.toggle3DBtn.textContent = 'Cambiar a Vista 3D'; setTimeout(() => map.setTerrain(null), 1000); } });
+        dom.toggle3DBtn.addEventListener('click', () => { state.is3D = !state.is3D; if (state.is3D) { map.setTerrain({ source: 'mapbox-dem', exaggeration: 2.5 }); map.easeTo({ pitch: 45, duration: 1000 }); dom.toggle3DBtn.textContent = 'Change to 2D View'; } else { map.easeTo({ pitch: 0, bearing: 0, duration: 1000 }); dom.toggle3DBtn.textContent = 'Change to 3D View'; setTimeout(() => map.setTerrain(null), 1000); } });
         
         dom.mapStyleControls.addEventListener('click', (e) => {
             if (e.target.classList.contains('style-btn') && !e.target.classList.contains('active')) {
@@ -266,10 +215,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const areaKm2 = turf.area(geojson) / 1e6;
             const volumeMegaM3 = (areaKm2 * 1e6 * 0.5) / 1e6;
             const percentageAffected = (areaKm2 / AREA_TABASCO_KM2) * 100;
-            dom.infoArea.textContent = `${areaKm2.toLocaleString('es-MX',{maximumFractionDigits:2})} km²`;
+            dom.infoArea.textContent = `${areaKm2.toLocaleString('en-US',{maximumFractionDigits:2})} km²`;
             dom.infoPercentage.textContent = `${percentageAffected.toFixed(2)} %`;
-            dom.infoVolume.textContent = `${volumeMegaM3.toLocaleString('es-MX',{maximumFractionDigits:2})} M m³`;
-            dom.infoPolygons.textContent = geojson.features.length.toLocaleString('es-MX');
+            dom.infoVolume.textContent = `${volumeMegaM3.toLocaleString('en-US',{maximumFractionDigits:2})} M m³`;
+            dom.infoPolygons.textContent = geojson.features.length.toLocaleString('en-US');
             dom.infoTitle.textContent = `${event.description} (${event.label})`;
             dom.infoPanel.classList.remove('hidden');
         } catch (error) { dom.infoPanel.classList.add('hidden'); }
@@ -277,7 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     
     const updateChartForYear = async (year) => {
-        dom.chartLabel.textContent = `Resumen del Evento ${year}`;
+        dom.chartLabel.textContent = `Event Summary ${year}`;
         const eventsForYear = availableEvents.filter(e => e.year === year).sort((a,b) => ["Antes", "Durante", "Después"].indexOf(a.stage) - ["Antes", "Durante", "Después"].indexOf(b.stage));
         const labels = [], data = [];
         for (const event of eventsForYear) {
@@ -291,7 +240,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         dashboardChart.data.labels = labels;
         dashboardChart.data.datasets[0] = {
-            label: 'Área Inundada', data: data, backgroundColor: `${state.waterColor}99`, borderColor: state.waterColor,
+            label: 'Flooded Area', data: data, backgroundColor: `${state.waterColor}99`, borderColor: state.waterColor,
             borderWidth: 1, borderRadius: 4,
         };
         dashboardChart.update();
@@ -301,9 +250,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.timeline-point').forEach(p => p.classList.toggle('active', p.dataset.eventId === state.currentEventId));
         document.querySelectorAll('.style-btn').forEach(b => b.classList.toggle('active', b.dataset.style === state.mapStyle));
         document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.color === state.waterColor));
-        dom.toggleBorderBtn.textContent = state.isBorderVisible ? 'Ocultar Borde' : 'Mostrar Borde';
+        dom.toggleBorderBtn.textContent = state.isBorderVisible ? 'Hide Border' : 'Show Border';
         dom.toggleBorderBtn.classList.toggle('active', state.isBorderVisible);
-        dom.toggleLabelsBtn.textContent = state.areLabelsVisible ? 'Ocultar Etiquetas' : 'Mostrar Etiquetas';
+        dom.toggleLabelsBtn.textContent = state.areLabelsVisible ? 'Hide Labels' : 'Show Labels';
         dom.toggleLabelsBtn.classList.toggle('active', !state.areLabelsVisible);
     };
 

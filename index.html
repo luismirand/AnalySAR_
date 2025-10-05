@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnalySAR - Visualizador de Inundaciones</title>
+    <title>AnalySAR - Flood Viewer</title>
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
@@ -19,17 +19,29 @@
     <main id="welcome-screen">
         <div class="welcome-content">
             <h1 class="welcome-title">AnalySAR</h1>
-            <p class="welcome-subtitle">Análisis de Inundaciones con Datos de Radar de Apertura Sintética</p>
-            <button id="enter-app-btn" class="enter-button">Explorar Mapa</button>
+            <p class="welcome-subtitle">Flood Analysis with Synthetic Aperture Radar Data</p>
+            <button id="enter-app-btn" class="enter-button">Explore Map</button>
         </div>
         <div id="project-info" class="project-info-container">
-            <h3>Sobre el Proyecto</h3>
-            <p><strong>AnalySAR</strong> es un prototipo desarrollado para el <strong>NASA International Space Apps Challenge</strong>. Utiliza datos de radar de apertura sintética (SAR) del satélite Sentinel-1 para detectar y cuantificar cuerpos de agua y zonas de inundación en Tabasco, México, a lo largo de varios años.</p>
-            <h4>Fuentes de Datos y Recursos:</h4>
+            <h3>About the Project</h3>
+            <p><strong>AnalySAR</strong> is a prototype developed for the <strong>NASA International Space Apps Challenge 2025</strong>. It utilizes Synthetic Aperture Radar (SAR) data from the Sentinel-1 satellite to detect and quantify water bodies and flood zones in Tabasco, Mexico, over several years.</p>
+            
+            <h4>The Team</h4>
             <ul>
-                <li><strong>Datos SAR:</strong> Copernicus Sentinel-1, procesados a través de Google Earth Engine.</li>
-                <li><strong>Mapa Base y DEM:</strong> Mapbox.</li>
-                <li><strong>Librerías:</strong> Mapbox GL JS, Turf.js, Chart.js.</li>
+                <li><a href="https://www.linkedin.com/in/luisalbertomirandadiaz/" target="_blank" rel="noopener noreferrer">Luis Alberto Miranda Díaz <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+                <li><a href="https://www.linkedin.com/in/edson-adan-lopez-carbajal-2373a5290/" target="_blank" rel="noopener noreferrer">Edson Adan Lopez Carbajal <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+                <li><a href="http://www.linkedin.com/in/mar%C3%ADa-jos%C3%A9-barrag%C3%A1n-rosado-125633237" target="_blank" rel="noopener noreferrer">María José Barragán Rosado <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+                <li><a href="http://www.linkedin.com/in/mauro-acu%C3%B1a-olivarria-643744356" target="_blank" rel="noopener noreferrer">Mauro Acuña Olivarria <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+                <li><a href="https://www.linkedin.com/in/armando-ilianov-lizarraga-duarte-46b333256/" target="_blank" rel="noopener noreferrer">Armando Ilianov Lizarraga Duarte <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+                <li><a href="#" target="_blank" rel="noopener noreferrer">Jose Miguel Castro Cazarez <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+            </ul>
+
+            <h4>References & Sources</h4>
+            <ul>
+                <li><strong>SAR Data:</strong> <a href="https://sentinels.copernicus.eu/web/sentinel/copernicus/sentinel-1" target="_blank" rel="noopener noreferrer">Copernicus Sentinel-1 Mission</a>, processed via <a href="https://earthengine.google.com/" target="_blank" rel="noopener noreferrer">Google Earth Engine</a>.</li>
+                <li><strong>SAR Search Tool:</strong> <a href="https://search.asf.alaska.edu/" target="_blank" rel="noopener noreferrer">Alaska Satellite Facility</a>.</li>
+                <li><strong>Basemap & DEM:</strong> <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">Mapbox</a> Satellite and Terrain-DEM v1.</li>
+                <li><strong>Libraries:</strong> <a href="https://mapbox.com/mapbox-gl-js/" target="_blank" rel="noopener noreferrer">Mapbox GL JS</a>, <a href="https://turfjs.org/" target="_blank" rel="noopener noreferrer">Turf.js</a>, <a href="https://www.chartjs.org/" target="_blank" rel="noopener noreferrer">Chart.js</a>.</li>
             </ul>
         </div>
     </main>
@@ -45,34 +57,34 @@
             <div id="info-panel" class="panel hidden">
                 <h3 id="info-title"></h3>
                 <div class="info-grid">
-                    <span>Área:</span><strong id="info-area">--- km²</strong>
-                    <span>% Afectado:</span><strong id="info-percentage">--- %</strong>
-                    <span>Vol. Estimado:</span><strong id="info-volume">--- M m³</strong>
-                    <span>Polígonos:</span><strong id="info-polygons">---</strong>
+                    <span>Area:</span><strong id="info-area">--- km²</strong>
+                    <span>% Affected:</span><strong id="info-percentage">--- %</strong>
+                    <span>Est. Volume:</span><strong id="info-volume">--- M m³</strong>
+                    <span>Polygons:</span><strong id="info-polygons">---</strong>
                 </div>
-                <p class="info-note">*Volumen estimado asumiendo 0.5m de profundidad.</p>
+                <p class="info-note">*Est. volume assumes 0.5m avg. depth.</p>
             </div>
             <div id="chart-panel" class="panel">
-                <label id="chart-label">Resumen del Evento</label>
+                <label id="chart-label">Event Summary</label>
                 <div class="chart-container">
                     <canvas id="dashboard-chart"></canvas>
                 </div>
             </div>
         </div>
 
-        <div id="loading-indicator" class="panel hidden">Cargando...</div>
+        <div id="loading-indicator" class="panel hidden">Loading...</div>
 
         <div id="dashboard-panel" class="panel">
-            <div class="header"><h2>Panel de Control</h2></div>
+            <div class="header"><h2>Control Panel</h2></div>
             <div class="control-group">
-                <label>Estilo de Mapa</label>
+                <label>Map Style</label>
                 <div id="map-style-controls" class="segmented-control">
-                    <button class="style-btn" data-style="dark-v11">Oscuro</button>
-                    <button class="style-btn active" data-style="satellite-streets-v12">Satélite</button>
+                    <button class="style-btn" data-style="dark-v11">Dark</button>
+                    <button class="style-btn active" data-style="satellite-streets-v12">Satellite</button>
                 </div>
             </div>
             <div class="control-group">
-                <label>Color del Agua</label>
+                <label>Water Color</label>
                 <div id="water-color-controls" class="color-swatch-container">
                     <button class="color-swatch active" data-color="#22d3ee" style="background-color: #22d3ee;"></button>
                     <button class="color-swatch" data-color="#00ff80" style="background-color: #00ff80;"></button>
@@ -80,10 +92,10 @@
                 </div>
             </div>
             <div class="visualization-controls">
-                <div class="control-group"><label for="opacity-slider">Opacidad (<span id="opacity-value">75</span>%)</label><input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.75"></div>
-                <button id="toggle-labels-btn" class="btn-secondary">Ocultar Etiquetas</button>
-                <button id="toggle-border-btn" class="btn-secondary">Mostrar Borde de Tabasco</button>
-                <button id="toggle-3d-btn" class="btn-primary">Cambiar a Vista 2D</button>
+                <div class="control-group"><label for="opacity-slider">Opacity (<span id="opacity-value">75</span>%)</label><input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.75"></div>
+                <button id="toggle-labels-btn" class="btn-secondary">Hide Labels</button>
+                <button id="toggle-border-btn" class="btn-secondary">Show Tabasco Border</button>
+                <button id="toggle-3d-btn" class="btn-primary">Change to 2D View</button>
             </div>
         </div>
 
