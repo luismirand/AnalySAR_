@@ -1,4 +1,6 @@
-﻿# 1. Introduction
+Document Link: https://docs.google.com/document/d/1WDu87pxi4sKpKesoL0GBPMWyg1R9JBwowFwL9rcU-yY/edit?usp=sharing
+
+ # 1. Introduction
 
 Flooding is one of the most frequent and devastating natural hazards in Mexico, particularly in the southeastern region of *Tabasco*, where low elevation and intense rainfall combine to cause recurring flood events. These floods not only damage infrastructure and agriculture but also threaten the safety and livelihood of local communities. Traditional monitoring systems often rely on optical satellite imagery, which becomes ineffective during cloudy or stormy conditions — precisely when flood monitoring is most needed.
 
@@ -158,3 +160,4 @@ https://analy-sar.vercel.app/
 6. *Chart.js.* Open-Source JavaScript Data Visualization Library.  
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
+
