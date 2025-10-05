@@ -1,0 +1,72 @@
+[
+  {
+    "year": 2019,
+    "title": "Inundaciones en Tabasco 2019",
+    "description": "Evento detectado por Sentinel-1 en temporada de lluvias.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2019.geojson",
+      "durante": "Agua_Durante_Tabasco_2019.geojson",
+      "despues": "Agua_Despues_Tabasco_2019.geojson"
+    }
+  },
+  {
+    "year": 2020,
+    "title": "Inundaciones en Tabasco 2020",
+    "description": "Evento de gran impacto en Villahermosa y Cárdenas.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2020.geojson",
+      "durante": "Agua_Durante_Tabasco_2020.geojson",
+      "despues": "Agua_Despues_Tabasco_2020.geojson"
+    }
+  },
+  {
+    "year": 2021,
+    "title": "Inundaciones en Tabasco 2021",
+    "description": "Precipitaciones acumuladas en la cuenca del Grijalva.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2021.geojson",
+      "durante": "Agua_Durante_Tabasco_2021.geojson",
+      "despues": "Agua_Despues_Tabasco_2021.geojson"
+    }
+  },
+  {
+    "year": 2022,
+    "title": "Inundaciones en Tabasco 2022",
+    "description": "Lluvias asociadas a frente frío No. 11.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2022.geojson",
+      "durante": "Agua_Durante_Tabasco_2022.geojson",
+      "despues": "Agua_Despues_Tabasco_2022.geojson"
+    }
+  },
+  {
+    "year": 2023,
+    "title": "Inundaciones en Tabasco 2023",
+    "description": "Eventos moderados, localizados en zonas bajas.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2023.geojson",
+      "durante": "Agua_Durante_Tabasco_2023.geojson",
+      "despues": "Agua_Despues_Tabasco_2023.geojson"
+    }
+  },
+  {
+    "year": 2024,
+    "title": "Inundaciones en Tabasco 2024",
+    "description": "Temporada de lluvias tempranas, aumento del caudal.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2024.geojson",
+      "durante": "Agua_Durante_Tabasco_2024.geojson",
+      "despues": "Agua_Despues_Tabasco_2024.geojson"
+    }
+  },
+  {
+    "year": 2025,
+    "title": "Inundaciones en Tabasco 2025",
+    "description": "Predicción o evento reciente en desarrollo.",
+    "layers": {
+      "antes": "Agua_Antes_Tabasco_2025.geojson",
+      "durante": "Agua_Durante_Tabasco_2025.geojson",
+      "despues": "Agua_Despues_Tabasco_2025.geojson"
+    }
+  }
+]

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnalySAR - Visualizador de Inundaciones</title>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+    <script src="https://npmcdn.com/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="config.js"></script> 
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+
+    <main id="welcome-screen">
+        <div class="welcome-content">
+            <h1 class="welcome-title">AnalySAR</h1>
+            <p class="welcome-subtitle">Análisis de Inundaciones con Datos de Radar de Apertura Sintética</p>
+            <button id="enter-app-btn" class="enter-button">Explorar Mapa</button>
+        </div>
+        <div id="project-info" class="project-info-container">
+            <h3>Sobre el Proyecto</h3>
+            <p>
+                <strong>AnalySAR</strong> es un prototipo desarrollado para el <strong>NASA International Space Apps Challenge</strong>. Utiliza datos de radar de apertura sintética (SAR) del satélite Sentinel-1 para detectar y cuantificar cuerpos de agua y zonas de inundación en Tabasco, México, a lo largo de varios años.
+            </p>
+            <h4>Fuentes de Datos y Recursos:</h4>
+            <ul>
+                <li><strong>Datos SAR:</strong> Copernicus Sentinel-1, procesados a través de Google Earth Engine.</li>
+                <li><strong>Mapa Base y DEM:</strong> Mapbox Satellite y Terrain-DEM v1.</li>
+                <li><strong>Librerías:</strong> Mapbox GL JS, Turf.js, Chart.js.</li>
+                <li><strong>Concepto:</strong> El análisis SAR permite penetrar la cobertura de nubes, lo que es crucial para monitorear inundaciones durante eventos de tormenta.</li>
+            </ul>
+        </div>
+    </main>
+
+    <main id="map-app" class="hidden">
+        <div id="map-container"></div>
+
+        <div class="top-left-container">
+            <a href="#" id="home-link" class="brand-corner">
+                <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                    <path d="M12 4c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"></path>
+                    <path d="M12 12c-4.411 0-8 1.794-8 4s3.589 4 8 4 8-1.794 8-4-3.589-4-8-4zm0 6c-3.309 0-6-1.346-6-3s2.691-3 6-3 6 1.346 6 3-2.691 3-6 3z"></path>
+                </svg>
+                <h2>AnalySAR</h2>
+            </a>
+            
+            <div id="info-panel" class="panel hidden">
+                <h3 id="info-title"></h3>
+                <div class="info-grid">
+                    <span>Área:</span>
+                    <strong id="info-area">--- km²</strong>
+                    <span>% Afectado:</span> <strong id="info-percentage">--- %</strong>
+                    <span>Vol. Estimado:</span>
+                    <strong id="info-volume">--- M m³</strong>
+                    <span>Polígonos:</span>
+                    <strong id="info-polygons">---</strong>
+                </div>
+                <p class="info-note">*Volumen estimado asumiendo 0.5m de profundidad promedio.</p>
+            </div>
+        </div>
+
+
+        <div id="loading-indicator" class="panel hidden">Cargando...</div>
+
+        <div id="dashboard-panel" class="panel">
+            <div class="header">
+                <h2>Panel de Control</h2>
+            </div>
+            <div class="control-group">
+                <label id="chart-label">Resumen del Evento</label>
+                <div class="chart-container">
+                    <canvas id="dashboard-chart"></canvas>
+                </div>
+            </div>
+            <div class="visualization-controls">
+                <div class="control-group">
+                    <label for="opacity-slider">Opacidad (<span id="opacity-value">60</span>%)</label>
+                    <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.60">
+                </div>
+                <button id="toggle-3d-btn" class="btn-primary">Cambiar a Vista 2D</button>
+            </div>
+        </div>
+
+        <div id="timeline-container" class="panel">
+            <div id="timeline" class="timeline-wrapper">
+                </div>
+        </div>
+    </main>
+
+</body>
+</html>
