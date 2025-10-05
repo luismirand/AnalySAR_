@@ -69,3 +69,83 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--prim
 .timeline-point .event-description{font-size:.875rem;font-weight:600;color:var(--text-secondary);transition:color .2s;white-space:nowrap}
 .timeline-point.active .event-description{color:white}
 .timeline-point .event-label{font-size:.75rem;color:#64748b;white-space:nowrap}
+
+
+
+/* Se aplica a pantallas con un ancho máximo de 768px */
+@media (max-width: 768px) {
+
+    /* --- PANELES PRINCIPALES --- */
+
+    /* El panel de control ahora ocupa todo el ancho y está arriba */
+    #dashboard-panel {
+        width: auto;
+        left: 0.5rem;
+        right: 0.5rem;
+        top: 0.5rem;
+        bottom: auto; /* Anula la posición inferior si la tuviera */
+        max-height: 50vh; /* Permite scroll si el contenido es mucho */
+        overflow-y: auto;
+    }
+
+    /* La gráfica la movemos para que no estorbe */
+    #chart-panel {
+        display: none; /* En móvil, la gráfica puede ocupar mucho espacio. La ocultamos. */
+    }
+
+    /* El contenedor del logo e info se mantiene, pero con ajustes */
+    .top-left-container {
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+    
+    /* Hacemos más pequeño el panel de información */
+    #info-panel {
+        padding: 0.5rem;
+        width: 200px;
+    }
+    #info-panel h3 {
+        font-size: 0.875rem;
+    }
+    #info-panel .info-grid {
+        font-size: 0.8rem;
+    }
+
+
+    /* --- LÍNEA DE TIEMPO --- */
+
+    #timeline-container {
+        left: 0.5rem;
+        right: 0.5rem;
+        bottom: 0.5rem;
+        width: auto;
+        transform: translateX(0);
+        padding: 0.5rem;
+    }
+
+    /* Hacemos que la línea de tiempo tenga scroll horizontal si no cabe */
+    .timeline-wrapper {
+        justify-content: flex-start; /* Alinea los items al inicio */
+        overflow-x: auto;
+        padding-bottom: 0.5rem; /* Espacio para la barra de scroll */
+    }
+
+    .timeline-point {
+        padding: 0 0.75rem; /* Más espacio entre puntos */
+    }
+
+    .timeline-wrapper .timeline-line {
+        width: 150%; /* Asegura que la línea sea lo suficientemente larga */
+    }
+
+    /* --- PANTALLA DE BIENVENIDA --- */
+    
+    .welcome-title {
+        font-size: 3rem; /* Título más pequeño para móviles */
+    }
+
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+
+}
