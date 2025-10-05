@@ -70,4 +70,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .timeline-point .event-description{font-size:.875rem;font-weight:600;color:var(--text-secondary);transition:color .2s;white-space:nowrap}
 .timeline-point.active .event-description{color:white}
 .timeline-point .event-label{font-size:.75rem;color:#64748b;white-space:nowrap}
+.info-grid span{position:relative;cursor:help}
+.info-grid span::before{content:attr(data-tooltip);position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background-color:var(--bg-color);color:var(--text-main);padding:.5rem .75rem;border-radius:.375rem;border:1px solid var(--panel-border);font-size:.8rem;white-space:nowrap;z-index:10;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.info-grid span::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border-width:5px;border-style:solid;border-color:var(--bg-color) transparent transparent transparent;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.info-grid span:hover::before,.info-grid span:hover::after{opacity:1;visibility:visible}
+.critical-point-marker{width:16px;height:16px;background-color:#ef4444;border:2px solid white;border-radius:50%;cursor:pointer;box-shadow:0 0 10px #ef4444;animation:pulse-red 2s infinite}
+@keyframes pulse-red{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(239,68,68,0.7)}70%{transform:scale(1);box-shadow:0 0 0 10px rgba(239,68,68,0)}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+.mapboxgl-popup-content{background-color:var(--panel-bg) !important;color:var(--text-main) !important;border-radius:.5rem !important;padding:.75rem 1rem !important;font-family:'Inter',sans-serif}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip{border-bottom-color:var(--panel-bg) !important}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{border-top-color:var(--panel-bg) !important}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip{border-right-color:var(--panel-bg) !important}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip{border-left-color:var(--panel-bg) !important}
 @media (max-width:768px){.welcome-title{font-size:3rem}.welcome-subtitle{font-size:1rem}.top-left-container{top:.5rem;left:.5rem;right:.5rem;width:auto}#info-panel,#chart-panel{width:100%}#chart-panel{display:none}.brand-corner .app-name{display:none}#dashboard-panel{top:auto;bottom:8rem;left:.5rem;right:.5rem;width:auto;padding:.75rem}.header h2{font-size:1rem}#timeline-container{bottom:.5rem;left:.5rem;right:.5rem}.timeline-wrapper{justify-content:flex-start;overflow-x:auto;padding-bottom:.5rem}.timeline-point{padding:0 .75rem}.timeline-wrapper .timeline-line{width:200%}}
