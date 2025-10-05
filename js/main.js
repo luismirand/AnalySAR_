@@ -6,24 +6,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
+    // --- FUNCIÓN DE CLASIFICACIÓN DE SEVERIDAD ---
+    const getSeverity = (areaKm2) => {
+        if (areaKm2 > 3000) return { name: 'Catastrophic', color: '#ef4444' }; // Red-500
+        if (areaKm2 > 1500) return { name: 'Major', color: '#f97316' };       // Orange-500
+        if (areaKm2 > 500) return { name: 'Moderate', color: '#facc15' };     // Yellow-400
+        if (areaKm2 > 0) return { name: 'Minor', color: '#22c55e' };          // Green-500
+        return { name: 'N/A', color: '#6b7280' };                           // Gray-500
+    };
+
     const POTENTIAL_EVENTS = [
-        { year: 2014, stage: 'Antes', label: 'Sep 2014', description: '2014 Pre-Event' }, { year: 2014, stage: 'Durante', label: 'Oct 2014', description: '2014 Event' }, { year: 2014, stage: 'Después', label: 'Nov 2014', description: '2014 Post-Event' },
-        { year: 2015, stage: 'Antes', label: 'Oct 2015', description: '2015 Pre-Event' }, { year: 2015, stage: 'Durante', label: 'Nov 2015', description: '2015 Event' }, { year: 2015, stage: 'Después', label: 'Dec 2015', description: '2015 Post-Event' },
-        { year: 2016, stage: 'Antes', label: 'Sep 2016', description: '2016 Pre-Event' }, { year: 2016, stage: 'Durante', label: 'Oct 2016', description: '2016 Event' }, { year: 2016, stage: 'Después', label: 'Nov 2016', description: '2016 Post-Event' },
-        { year: 2017, stage: 'Antes', label: 'Sep 2017', description: '2017 Pre-Event' }, { year: 2017, stage: 'Durante', label: 'Oct 2017', description: '2017 Event' }, { year: 2017, stage: 'Después', label: 'Nov 2017', description: '2017 Post-Event' },
-        { year: 2018, stage: 'Antes', label: 'Sep 2018', description: '2018 Pre-Event' }, { year: 2018, stage: 'Durante', label: 'Oct 2018', description: '2018 Event' }, { year: 2018, stage: 'Después', label: 'Nov 2018', description: '2018 Post-Event' },
-        { year: 2019, stage: 'Antes', label: 'Jul 2019', description: '2019 Pre-Event' }, { year: 2019, stage: 'Durante', label: 'Oct-Nov 2019', description: '2019 Event' }, { year: 2019, stage: 'Después', label: 'Dec 2019', description: '2019 Post-Event' },
-        { year: 2020, stage: 'Antes', label: 'Sep 2020', description: 'Pre-Flood' }, { year: 2020, stage: 'Durante', label: 'Oct-Nov 2020', description: 'Major Flood' }, { year: 2020, stage: 'Después', label: 'Dec 2020', description: 'Post-Flood' },
-        { year: 2021, stage: 'Antes', label: 'Oct 2021', description: '2021 Pre-Event' }, { year: 2021, stage: 'Durante', label: 'Nov 2021', description: '2021 Event' }, { year: 2021, stage: 'Después', label: 'Dec 2021', description: '2021 Post-Event' },
-        { year: 2022, stage: 'Antes', label: 'Sep 2022', description: '2022 Pre-Event' }, { year: 2022, stage: 'Durante', label: 'Oct 2022', description: '2022 Event' }, { year: 2022, stage: 'Después', label: 'Nov 2022', description: '2022 Post-Event' },
-        { year: 2023, stage: 'Antes', label: 'Oct 2023', description: '2023 Pre-Event' }, { year: 2023, stage: 'Durante', label: 'Nov-Dec 2023', description: '2023 Event' }, { year: 2023, stage: 'Después', label: 'Jan 2024', description: '2023 Post-Event' },
-        { year: 2024, stage: 'Antes', label: 'Sep 2024', description: '2024 Pre-Event' }, { year: 2024, stage: 'Durante', label: 'Oct 2024', description: '2024 Event' }, { year: 2024, stage: 'Después', label: 'Nov 2024', description: '2024 Post-Event' },
-        { year: 2025, stage: 'Antes', label: 'Sep 2025', description: '2025 Pre-Event' }, { year: 2025, stage: 'Durante', label: 'Oct 2025', description: '2025 Event' }, { year: 2025, stage: 'Después', label: 'Nov 2025', description: '2025 Post-Event' },
+        { year: 2014, stage: 'Antes', label: 'Sep 2014', description: '2014 Pre-Event' }, { year: 2014, stage: 'Durante', label: 'Oct 2014', description: '2014 Event' }, { year: 2014, stage: 'Después', label: 'Nov 2014', description: '2014 Post-Event' }, { year: 2015, stage: 'Antes', label: 'Oct 2015', description: '2015 Pre-Event' }, { year: 2015, stage: 'Durante', label: 'Nov 2015', description: '2015 Event' }, { year: 2015, stage: 'Después', label: 'Dec 2015', description: '2015 Post-Event' }, { year: 2016, stage: 'Antes', label: 'Sep 2016', description: '2016 Pre-Event' }, { year: 2016, stage: 'Durante', label: 'Oct 2016', description: '2016 Event' }, { year: 2016, stage: 'Después', label: 'Nov 2016', description: '2016 Post-Event' }, { year: 2017, stage: 'Antes', label: 'Sep 2017', description: '2017 Pre-Event' }, { year: 2017, stage: 'Durante', label: 'Oct 2017', description: '2017 Event' }, { year: 2017, stage: 'Después', label: 'Nov 2017', description: '2017 Post-Event' }, { year: 2018, stage: 'Antes', label: 'Sep 2018', description: '2018 Pre-Event' }, { year: 2018, stage: 'Durante', label: 'Oct 2018', description: '2018 Event' }, { year: 2018, stage: 'Después', label: 'Nov 2018', description: '2018 Post-Event' }, { year: 2019, stage: 'Antes', label: 'Jul 2019', description: '2019 Pre-Event' }, { year: 2019, stage: 'Durante', label: 'Oct-Nov 2019', description: '2019 Event' }, { year: 2019, stage: 'Después', label: 'Dec 2019', description: '2019 Post-Event' }, { year: 2020, stage: 'Antes', label: 'Sep 2020', description: 'Pre-Flood' }, { year: 2020, stage: 'Durante', label: 'Oct-Nov 2020', description: 'Major Flood' }, { year: 2020, stage: 'Después', label: 'Dec 2020', description: 'Post-Flood' }, { year: 2021, stage: 'Antes', label: 'Oct 2021', description: '2021 Pre-Event' }, { year: 2021, stage: 'Durante', label: 'Nov 2021', description: '2021 Event' }, { year: 2021, stage: 'Después', label: 'Dec 2021', description: '2021 Post-Event' }, { year: 2022, stage: 'Antes', label: 'Sep 2022', description: '2022 Pre-Event' }, { year: 2022, stage: 'Durante', label: 'Oct 2022', description: '2022 Event' }, { year: 2022, stage: 'Después', label: 'Nov 2022', description: '2022 Post-Event' }, { year: 2023, stage: 'Antes', label: 'Oct 2023', description: '2023 Pre-Event' }, { year: 2023, stage: 'Durante', label: 'Nov-Dec 2023', description: '2023 Event' }, { year: 2023, stage: 'Después', label: 'Jan 2024', description: '2023 Post-Event' }, { year: 2024, stage: 'Antes', label: 'Sep 2024', description: '2024 Pre-Event' }, { year: 2024, stage: 'Durante', label: 'Oct 2024', description: '2024 Event' }, { year: 2024, stage: 'Después', label: 'Nov 2024', description: '2024 Post-Event' }, { year: 2025, stage: 'Antes', label: 'Sep 2025', description: '2025 Pre-Event' }, { year: 2025, stage: 'Durante', label: 'Oct 2025', description: '2025 Event' }, { year: 2025, stage: 'Después', label: 'Nov 2025', description: '2025 Post-Event' },
     ];
     const AREA_TABASCO_KM2 = 24738;
     let availableEvents = [];
     const state = { currentEventId: '2020-Durante', opacity: 0.75, is3D: true, isBorderVisible: true, areLabelsVisible: true, waterColor: '#22d3ee', mapStyle: 'satellite-streets-v12' };
-    const dom = { welcomeScreen: document.getElementById('welcome-screen'), mapApp: document.getElementById('map-app'), enterAppBtn: document.getElementById('enter-app-btn'), homeLink: document.getElementById('home-link'), opacitySlider: document.getElementById('opacity-slider'), opacityValue: document.getElementById('opacity-value'), toggle3DBtn: document.getElementById('toggle-3d-btn'), timelineContainer: document.getElementById('timeline'), chartPanel: document.getElementById('chart-panel'), chartLabel: document.getElementById('chart-label'), infoPanel: document.getElementById('info-panel'), infoTitle: document.getElementById('info-title'), infoArea: document.getElementById('info-area'), infoPercentage: document.getElementById('info-percentage'), infoVolume: document.getElementById('info-volume'), infoPolygons: document.getElementById('info-polygons'), loadingIndicator: document.getElementById('loading-indicator'), mapStyleControls: document.getElementById('map-style-controls'), waterColorControls: document.getElementById('water-color-controls'), toggleBorderBtn: document.getElementById('toggle-border-btn'), toggleLabelsBtn: document.getElementById('toggle-labels-btn') };
+    
+    const dom = {
+        welcomeScreen: document.getElementById('welcome-screen'), mapApp: document.getElementById('map-app'), enterAppBtn: document.getElementById('enter-app-btn'), homeLink: document.getElementById('home-link'), opacitySlider: document.getElementById('opacity-slider'), opacityValue: document.getElementById('opacity-value'), toggle3DBtn: document.getElementById('toggle-3d-btn'), timelineContainer: document.getElementById('timeline'), chartPanel: document.getElementById('chart-panel'), chartLabel: document.getElementById('chart-label'), infoPanel: document.getElementById('info-panel'), infoTitle: document.getElementById('info-title'), infoArea: document.getElementById('info-area'), infoPercentage: document.getElementById('info-percentage'), infoVolume: document.getElementById('info-volume'), infoPolygons: document.getElementById('info-polygons'), infoSeverity: document.getElementById('info-severity'), loadingIndicator: document.getElementById('loading-indicator'), mapStyleControls: document.getElementById('map-style-controls'), waterColorControls: document.getElementById('water-color-controls'), toggleBorderBtn: document.getElementById('toggle-border-btn'), toggleLabelsBtn: document.getElementById('toggle-labels-btn')
+    };
     let map, dashboardChart, isTransitioning = false;
 
     const initializeApp = async () => {
@@ -53,15 +54,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const findAvailableData = async () => {
+        console.log("Analyzing data files...");
         const checks = POTENTIAL_EVENTS.map(async (event) => {
             const path = `data/Agua_${event.stage}_Tabasco_${event.year}.geojson`;
             try {
-                const response = await fetch(path, { method: 'HEAD' });
-                if (response.ok) return { ...event, id: `${event.year}-${event.stage}` };
-            } catch (error) {}
-            return null;
+                const response = await fetch(path);
+                if (!response.ok) return null;
+
+                const geojson = await response.json();
+                const areaKm2 = turf.area(geojson) / 1e6;
+                const severity = getSeverity(areaKm2);
+                
+                return { ...event, id: `${event.year}-${event.stage}`, area: areaKm2, severity: severity };
+            } catch (error) {
+                return null;
+            }
         });
         availableEvents = (await Promise.all(checks)).filter(Boolean);
+        console.log(`Found and analyzed ${availableEvents.length} events.`);
     };
 
     const initMap = () => {
@@ -181,6 +191,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             point.className = 'timeline-point';
             point.dataset.eventId = event.id;
             point.innerHTML = `<div class="dot"></div><div class="event-description">${event.description}</div><div class="event-label">${event.label}</div>`;
+            
+            if (event.stage === 'Durante') {
+                point.querySelector('.dot').style.borderColor = event.severity.color;
+            }
+
             point.addEventListener('click', () => transitionToEvent(event.id));
             dom.timelineContainer.appendChild(point);
         });
@@ -200,39 +215,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
     
-    const updateInfoPanel = async (event) => {
-        dom.loadingIndicator.classList.remove('hidden');
-        dom.infoPanel.classList.add('hidden');
-        const path = `data/Agua_${event.stage}_Tabasco_${event.year}.geojson`;
-        try {
-            const response = await fetch(path);
-            const geojson = await response.json();
-            const areaKm2 = turf.area(geojson) / 1e6;
-            const volumeMegaM3 = (areaKm2 * 1e6 * 0.5) / 1e6;
-            const percentageAffected = (areaKm2 / AREA_TABASCO_KM2) * 100;
-            dom.infoArea.textContent = `${areaKm2.toLocaleString('en-US',{maximumFractionDigits:2})} km²`;
-            dom.infoPercentage.textContent = `${percentageAffected.toFixed(2)} %`;
-            dom.infoVolume.textContent = `${volumeMegaM3.toLocaleString('en-US',{maximumFractionDigits:2})} M m³`;
-            dom.infoPolygons.textContent = geojson.features.length.toLocaleString('en-US');
-            dom.infoTitle.textContent = `${event.description} (${event.label})`;
-            dom.infoPanel.classList.remove('hidden');
-        } catch (error) { dom.infoPanel.classList.add('hidden'); }
-        finally { dom.loadingIndicator.classList.add('hidden'); }
+    const updateInfoPanel = (event) => {
+        dom.loadingIndicator.classList.add('hidden');
+        dom.infoPanel.classList.remove('hidden');
+
+        const { area, severity, stage, year, description, label } = event;
+        const volumeMegaM3 = (area * 1e6 * 0.5) / 1e6;
+        const percentageAffected = (area / AREA_TABASCO_KM2) * 100;
+        
+        dom.infoSeverity.textContent = severity.name;
+        dom.infoSeverity.style.color = severity.color;
+        dom.infoArea.textContent = `${area.toLocaleString('en-US',{maximumFractionDigits:2})} km²`;
+        dom.infoPercentage.textContent = `${percentageAffected.toFixed(2)} %`;
+        dom.infoVolume.textContent = `${volumeMegaM3.toLocaleString('en-US',{maximumFractionDigits:2})} M m³`;
+        dom.infoTitle.textContent = `${description} (${label})`;
+
+        // Re-fetch only for polygon count as it's not pre-calculated
+        fetch(`data/Agua_${stage}_Tabasco_${year}.geojson`)
+            .then(res => res.json())
+            .then(geojson => {
+                dom.infoPolygons.textContent = geojson.features.length.toLocaleString('en-US');
+            });
     };
     
-    const updateChartForYear = async (year) => {
+    const updateChartForYear = (year) => {
         dom.chartLabel.textContent = `Event Summary ${year}`;
         const eventsForYear = availableEvents.filter(e => e.year === year).sort((a,b) => ["Antes", "Durante", "Después"].indexOf(a.stage) - ["Antes", "Durante", "Después"].indexOf(b.stage));
-        const labels = [], data = [];
-        for (const event of eventsForYear) {
-            const path = `data/Agua_${event.stage}_Tabasco_${event.year}.geojson`;
-            try {
-                const res = await fetch(path);
-                const geojson = await res.json();
-                labels.push(`${event.stage} (${event.label})`);
-                data.push(Math.round(turf.area(geojson) / 1e6));
-            } catch { labels.push(event.stage); data.push(0); }
-        }
+        
+        const labels = eventsForYear.map(e => `${e.stage} (${e.label})`);
+        const data = eventsForYear.map(e => Math.round(e.area));
+
         dashboardChart.data.labels = labels;
         dashboardChart.data.datasets[0] = {
             label: 'Flooded Area', data: data, backgroundColor: `${state.waterColor}99`, borderColor: state.waterColor,
