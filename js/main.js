@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
-    // --- LISTA COMPLETA DE EVENTOS POTENCIALES ---
     const POTENTIAL_EVENTS = [
         { year: 2014, stage: 'Antes', label: 'Sep 2014', description: '2014 Pre-Event' }, { year: 2014, stage: 'Durante', label: 'Oct 2014', description: '2014 Event' }, { year: 2014, stage: 'Después', label: 'Nov 2014', description: '2014 Post-Event' },
         { year: 2015, stage: 'Antes', label: 'Oct 2015', description: '2015 Pre-Event' }, { year: 2015, stage: 'Durante', label: 'Nov 2015', description: '2015 Event' }, { year: 2015, stage: 'Después', label: 'Dec 2015', description: '2015 Post-Event' },
@@ -23,13 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     ];
     const AREA_TABASCO_KM2 = 24738;
     let availableEvents = [];
-    const state = {
-        currentEventId: '2020-Durante', opacity: 0.75, is3D: true, isBorderVisible: true, areLabelsVisible: true, waterColor: '#22d3ee', mapStyle: 'satellite-streets-v12',
-    };
-    
-    const dom = {
-        welcomeScreen: document.getElementById('welcome-screen'), mapApp: document.getElementById('map-app'), enterAppBtn: document.getElementById('enter-app-btn'), homeLink: document.getElementById('home-link'), opacitySlider: document.getElementById('opacity-slider'), opacityValue: document.getElementById('opacity-value'), toggle3DBtn: document.getElementById('toggle-3d-btn'), timelineContainer: document.getElementById('timeline'), chartPanel: document.getElementById('chart-panel'), chartLabel: document.getElementById('chart-label'), infoPanel: document.getElementById('info-panel'), infoTitle: document.getElementById('info-title'), infoArea: document.getElementById('info-area'), infoPercentage: document.getElementById('info-percentage'), infoVolume: document.getElementById('info-volume'), infoPolygons: document.getElementById('info-polygons'), loadingIndicator: document.getElementById('loading-indicator'), mapStyleControls: document.getElementById('map-style-controls'), waterColorControls: document.getElementById('water-color-controls'), toggleBorderBtn: document.getElementById('toggle-border-btn'), toggleLabelsBtn: document.getElementById('toggle-labels-btn')
-    };
+    const state = { currentEventId: '2020-Durante', opacity: 0.75, is3D: true, isBorderVisible: true, areLabelsVisible: true, waterColor: '#22d3ee', mapStyle: 'satellite-streets-v12' };
+    const dom = { welcomeScreen: document.getElementById('welcome-screen'), mapApp: document.getElementById('map-app'), enterAppBtn: document.getElementById('enter-app-btn'), homeLink: document.getElementById('home-link'), opacitySlider: document.getElementById('opacity-slider'), opacityValue: document.getElementById('opacity-value'), toggle3DBtn: document.getElementById('toggle-3d-btn'), timelineContainer: document.getElementById('timeline'), chartPanel: document.getElementById('chart-panel'), chartLabel: document.getElementById('chart-label'), infoPanel: document.getElementById('info-panel'), infoTitle: document.getElementById('info-title'), infoArea: document.getElementById('info-area'), infoPercentage: document.getElementById('info-percentage'), infoVolume: document.getElementById('info-volume'), infoPolygons: document.getElementById('info-polygons'), loadingIndicator: document.getElementById('loading-indicator'), mapStyleControls: document.getElementById('map-style-controls'), waterColorControls: document.getElementById('water-color-controls'), toggleBorderBtn: document.getElementById('toggle-border-btn'), toggleLabelsBtn: document.getElementById('toggle-labels-btn') };
     let map, dashboardChart, isTransitioning = false;
 
     const initializeApp = async () => {
@@ -37,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (availableEvents.length === 0) { alert("No data files found in /data/ folder."); return; }
         
         dom.enterAppBtn.addEventListener('click', () => {
+            document.body.classList.add('map-active');
             dom.welcomeScreen.style.transition = 'opacity 0.5s ease-out';
             dom.welcomeScreen.style.opacity = 0;
             setTimeout(() => {
