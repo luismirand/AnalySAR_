@@ -5,27 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AnalySAR - Flood Viewer</title>
     <link rel="icon" href="img/LOGOANALYSAR.png" type="image/x-icon">
-
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
     <script src="https://npmcdn.com/@turf/turf@6.5.0/turf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-
     <link rel="stylesheet" href="css/style.css" />
-    <script src="config.js"></script>
+    <script src="config.js"></script> 
     <script src="js/main.js" defer></script>
 </head>
 <body>
     <main id="welcome-screen">
         <div class="welcome-content">
-            <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="welcome-logo" />
+            <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="welcome-logo">
             <h1 class="welcome-title">AnalySAR</h1>
             <p class="welcome-subtitle">Flood Analysis with Synthetic Aperture Radar Data</p>
             <button id="enter-app-btn" class="enter-button">Explore Map</button>
         </div>
         <div id="project-info" class="project-info-container">
             <h3>About the Project</h3>
-            <p><strong>AnalySAR</strong> is a prototype developed for the <strong>NASA International Space Apps Challenge 2025</strong>. It uses <strong>Synthetic Aperture Radar (SAR)</strong> data from Sentinel-1 to detect and quantify floods in Tabasco, Mexico.</p>
+            <p><strong>AnalySAR</strong> is a prototype developed for the <strong>NASA International Space Apps Challenge 2025</strong>. It utilizes Synthetic Aperture Radar (SAR) data from the Sentinel-1 satellite to detect and quantify water bodies and flood zones in Tabasco, Mexico, over several years.</p>
             <h4>The Team</h4>
             <ul>
                 <li><a href="https://www.linkedin.com/in/luisalbertomirandadiaz/" target="_blank" rel="noopener noreferrer">Luis Alberto Miranda Díaz <svg class="linkedin-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
@@ -44,14 +42,18 @@
             </ul>
         </div>
     </main>
+
     <main id="map-app" class="hidden">
         <div id="map-container"></div>
-        <div class="top-left-container">
-            <a href="#" id="home-link" class="brand-corner panel">
-                <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="app-logo">
-                <h2 class="app-name">AnalySAR</h2>
-            </a>
-            <div id="info-panel" class="panel hidden">
+        <div id="sidebar-overlay" class="hidden"></div>
+        
+        <a href="#" id="home-link" class="brand-corner panel">
+            <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="app-logo">
+            <h2 class="app-name">AnalySAR</h2>
+        </a>
+        
+        <div id="left-sidebar-container" class="top-left-container">
+            <div id="info-panel" class="panel">
                 <h3 id="info-title"></h3>
                 <div class="info-grid">
                     <span data-tooltip="Severity level based on the total flooded area.">Severity:</span><strong id="info-severity">---</strong>
@@ -69,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div id="loading-indicator" class="panel hidden">Loading...</div>
+
         <div id="dashboard-panel" class="panel">
             <div class="header"><h2>Control Panel</h2></div>
             <div class="control-group">
@@ -89,14 +91,26 @@
             </div>
             <div class="visualization-controls">
                 <div class="control-group"><label for="opacity-slider">Opacity (<span id="opacity-value">75</span>%)</label><input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.75" /></div>
+                
+                <div id="controls-3d" class="control-group">
+                    <label>3D View Controls</label>
+                    <div class="control-group"><label for="pitch-slider">Pitch (<span id="pitch-value">45</span>°)</label><input type="range" id="pitch-slider" min="0" max="85" step="1" value="45" /></div>
+                    <div class="control-group"><label for="bearing-slider">Bearing (<span id="bearing-value">0</span>°)</label><input type="range" id="bearing-slider" min="-180" max="180" step="1" value="0" /></div>
+                </div>
+
                 <button id="toggle-labels-btn" class="btn-secondary">Hide Labels</button>
                 <button id="toggle-border-btn" class="btn-secondary">Show Tabasco Border</button>
-                <button id="toggle-3d-btn" class="btn-primary">Change to 2D View</button>
+                <button id="toggle-3d-btn" class="btn-primary">Disable 3D View</button>
             </div>
         </div>
+        
         <div id="timeline-container" class="panel">
             <div id="timeline" class="timeline-wrapper"></div>
         </div>
+        
+        <button id="left-sidebar-toggle" class="sidebar-toggle left">📊 Info</button>
+        <button id="right-sidebar-toggle" class="sidebar-toggle right">⚙️ Controls</button>
+
     </main>
 </body>
 </html>
