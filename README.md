@@ -167,14 +167,14 @@ https://analy-sar.vercel.app/
 1. *European Space Agency (ESA).* Sentinel-1 SAR GRD: C-band Synthetic Aperture Radar Ground Range Detected, log scaling.  
    [https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD)
 
-2. *Google Earth Engine.* Guide for Sentinel-1 Data Processing and Visualization.  
-   [https://developers.google.com/earth-engine/tutorials/community/sentinel-1-sar](https://developers.google.com/earth-engine/tutorials/community/sentinel-1-sar)
+2. *Google Earth Engine.* Detecting Changes in Sentinel-1 Imagery (Part 1).  
+   [https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1?hl=en](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1?hl=en)
 
 3. *NASA Earthdata.* Synthetic Aperture Radar (SAR) Missions Overview.  
    [https://earthdata.nasa.gov/learn/backgrounders/synthetic-aperture-radar](https://earthdata.nasa.gov/learn/backgrounders/synthetic-aperture-radar)
 
 4. *Mapbox GL JS.* Interactive Mapping Library Documentation.  
-   [https://docs.mapbox.com/mapbox-gl-js/](https://docs.mapbox.com/mapbox-gl-js/)
+   [https://docs.mapbox.com/mapbox-gl-js/guides](https://docs.mapbox.com/mapbox-gl-js/guides)
 
 5. *Turf.js.* Advanced Geospatial Analysis for the Web.  
    [https://turfjs.org/](https://turfjs.org/)
@@ -182,6 +182,7 @@ https://analy-sar.vercel.app/
 6. *Chart.js.* Open-Source JavaScript Data Visualization Library.  
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
+
 
 
 
