@@ -1,4 +1,4 @@
-# AnalySAR 🛰️ 
+# AnalySAR 
 ### Team MicroOndeados
 
 This project was developed for the 2025 NASA Space Apps Challenge under the global challenge “Through the Radar Looking Glass: Revealing Earth Processes with SAR.”
@@ -6,7 +6,7 @@ This project was developed for the 2025 NASA Space Apps Challenge under the glob
 We are **Team MicroOndeados**, a multidisciplinary group of students and developers passionate about radar technology, Earth observation, and environmental resilience.  
 Our goal is to harness Synthetic Aperture Radar (SAR) data to monitor and understand flood dynamics in Tabasco, Mexico, an area heavily affected by recurring extreme rainfall and river overflow.
 
-### 👥 Team Members
+### Team Members
 - **Luis Alberto Miranda Díaz**  
 - **Edson Adán López Carbajal**  
 - **María José Barragán Rosado**  
@@ -58,7 +58,7 @@ The objective of AnalySAR is to *develop an interactive platform for visualizing
 ---
 
 
-# Understanding the Information Panel Data 📊
+# Understanding the Information Panel Data 
 
 These are the calculations and meanings behind each metric displayed on the *AnalySAR* information panel.  
 Each value comes from automated geospatial analysis performed directly in the browser using *Turf.js* and data derived from *GeoJSON* files generated in *Google Earth Engine*.
@@ -122,7 +122,7 @@ A lower number could suggest one or a few *large continuous bodies of water*, su
 
 ---
 
-## 🧩 Summary Table
+##  Summary Table
 
 | Metric | Calculated with | Unit | Main Meaning |
 |---------|----------------|-------|---------------|
@@ -133,7 +133,7 @@ A lower number could suggest one or a few *large continuous bodies of water*, su
 
 ---
 
-🔹 These values are updated dynamically each time you select a *year* or *stage* (“Before”, “During”, “After”) within the AnalySAR interface,  
+These values are updated dynamically each time you select a *year* or *stage* (“Before”, “During”, “After”) within the AnalySAR interface,  
 allowing users to compare historical events and observe how water coverage
 
 ## Technological Approach
@@ -181,6 +181,7 @@ https://analy-sar.vercel.app/
 6. *Chart.js.* Open-Source JavaScript Data Visualization Library.  
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
+
 
 
 
