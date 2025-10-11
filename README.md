@@ -182,6 +182,9 @@ https://analy-sar.vercel.app/
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
 
+7. *United Nations Sustainable Development*.
+   https://www.un.org/sustainabledevelopment/blog/2015/11/un-report-finds-90-per-cent-of-disasters-are-weather-related/
+
 
 
 
