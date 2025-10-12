@@ -1,13 +1,12 @@
-# AnalySAR 🛰️ 
-### Team MicroOndeados (Team 21)
+# AnalySAR 
+### Team MicroOndeados
 
-We are **Team MicroOndeados (Team 21)**, a multidisciplinary group of students and developers passionate about radar technology, Earth observation, and environmental resilience.  
-Our goal is to harness **Synthetic Aperture Radar (SAR)** data to uncover and visualize Earth’s hidden processes — revealing what the naked eye can’t see, even through clouds and storms.  
+This project was developed for the 2025 NASA Space Apps Challenge under the global challenge “Through the Radar Looking Glass: Revealing Earth Processes with SAR.”
 
-This project was developed as part of the **2025 NASA Space Apps Challenge**, under the global challenge **“Through the Radar Looking Glass: Revealing Earth Processes with SAR.”**  
-Our focus is on using open SAR data and cloud-based analysis tools to monitor and understand **flood dynamics in Tabasco, Mexico**, an area heavily affected by recurring extreme rainfall and overflow events.
+We are **Team MicroOndeados**, a multidisciplinary group of students and developers passionate about radar technology, Earth observation, and environmental resilience.  
+Our goal is to harness Synthetic Aperture Radar (SAR) data to monitor and understand flood dynamics in Tabasco, Mexico, an area heavily affected by recurring extreme rainfall and river overflow.
 
-### 👥 Team Members
+### Team Members
 - **Luis Alberto Miranda Díaz**  
 - **Edson Adán López Carbajal**  
 - **María José Barragán Rosado**  
@@ -21,11 +20,11 @@ Our focus is on using open SAR data and cloud-based analysis tools to monitor an
 
  # 1. Introduction
 
-Flooding is one of the most frequent and devastating natural hazards in Mexico, particularly in the southeastern region of *Tabasco*, where low elevation and intense rainfall combine to cause recurring flood events. These floods not only damage infrastructure and agriculture but also threaten the safety and livelihood of local communities. Traditional monitoring systems often rely on optical satellite imagery, which becomes ineffective during cloudy or stormy conditions — precisely when flood monitoring is most needed.
+Floods are among the most frequent and devastating natural hazards in the world. According to a UN report, floods account for 47% of all weather-related natural disasters. In the southeastern state of Tabasco, a region characterized by low elevation and intense rainfall, floods are a frequent occurrence. These events not only threaten the safety and livelihoods of local communities but also damage critical infrastructure and agriculture. Traditional monitoring systems often rely on optical satellite imagery, which becomes ineffective during cloudy or stormy conditions—precisely when flood monitoring is most needed.
 
-To address this limitation, *AnalySAR* was developed as a prototype capable of mapping flooded areas using *Synthetic Aperture Radar (SAR)* imagery from the *Sentinel-1* satellite mission of the *European Space Agency (ESA)*. SAR technology allows continuous observation of the Earth's surface regardless of cloud cover or daylight, making it ideal for disaster response and hydrological analysis.
+To address this limitation, AnalySAR was developed as a prototype capable of mapping flooded areas using Synthetic Aperture Radar (SAR) imagery from the European Space Agency's (ESA) Sentinel-1 satellite mission. SAR technology allows for continuous observation of the Earth's surface regardless of cloud cover or daylight, making it ideal for disaster response and hydrological analysis.
 
-The project utilizes *Google Earth Engine (GEE)* to process multi-temporal Sentinel-1 datasets, applying thresholding and water detection algorithms to derive flood extent maps across different time intervals. These processed layers are then integrated into a *web-based 3D visualization system* powered by *Mapbox GL JS, **Turf.js, and **Chart.js*, providing an intuitive and interactive interface for exploring flood dynamics.
+Our project utilizes Google Earth Engine (GEE) to process multi-temporal Sentinel-1 datasets, applying thresholding and water detection algorithms to derive flood extent maps across different time intervals. These processed layers are then integrated into a web-based 3D visualization system powered by Mapbox GL JS, Turf.js, and Chart.js, providing an intuitive and interactive interface for exploring flood dynamics.
 
 By combining open satellite data, cloud computing, and interactive visualization, AnalySAR aims to make geospatial information more accessible to decision-makers, researchers, and the general public. This tool demonstrates how spaceborne radar data can be transformed into actionable insights for environmental monitoring, risk management, and community resilience.
 
@@ -33,17 +32,17 @@ By combining open satellite data, cloud computing, and interactive visualization
 
 ## Project Origin
 
-AnalySAR was conceived as part of the *NASA International Space Apps Challenge, in response to global calls for open innovation and Earth observation applications. The project was initiated with the goal of making radar-based flood data accessible and visually intuitive for both researchers and citizens. The idea originated from observing the challenges faced by **southern Mexican communities* in understanding and preparing for floods, where decision-making often relies on anecdotal reports or delayed official data.
+AnalySAR was conceived as part of the NASA International Space Apps Challenge in response to global calls for open innovation in Earth observation. The idea originated from observing the challenges faced by Tabascan communities in preparing for floods, where decision-making often relies on anecdotal reports or delayed official data.
 
-The development of AnalySAR started with *Google Earth Engine (GEE), a cloud platform capable of processing **Sentinel-1 Synthetic Aperture Radar (SAR)* data from the *European Space Agency (ESA). By leveraging GEE’s processing power, the project performs temporal analyses to map water surfaces across multiple years. The output GeoJSON layers are then integrated into a **3D web interface* created with *Mapbox GL JS, enhanced by **Turf.js* for spatial calculations (e.g., flooded area, estimated volume) and *Chart.js* for event visualization.
+Our goal was to bridge this gap by creating an accessible and visually intuitive tool for researchers and citizens alike. We decided to build our solution using open-access platforms, starting with Google Earth Engine (GEE) to process freely available Sentinel-1 radar data, and then integrating the results into an interactive web interface.
 
 ---
 
 ## Problem Statement
 
-The main problem addressed by AnalySAR is the *lack of accessible, real-time geospatial information* about flood-affected areas, especially in regions with limited infrastructure or technical capacity. Local communities and small authorities often depend on post-event reports or external organizations to assess the extent of floods, delaying response and recovery efforts.
+The main problem AnalySAR addresses is the lack of accessible, real-time geospatial information about flood-affected areas, especially in regions with limited infrastructure or technical capacity. Local communities and authorities often depend on post-event reports to assess the extent of floods, which delays response and recovery efforts.
 
-AnalySAR seeks to bridge this gap by providing a *web-based open tool* capable of mapping flood extents using *free satellite data, thus democratizing access to environmental intelligence. The system not only helps visualize **where floods occur, but also enables the comparison of flood patterns **before, during, and after* major events, enhancing long-term awareness of hydrological changes.
+AnalySAR seeks to bridge this gap by providing a web-based tool that maps flood extents using free satellite data, thereby democratizing access to environmental intelligence. The system not only helps visualize where floods occur but also enables the comparison of flood patterns before, during, and after major events, enhancing long-term awareness of hydrological changes.
 
 ---
 
@@ -59,7 +58,7 @@ The objective of AnalySAR is to *develop an interactive platform for visualizing
 ---
 
 
-# Understanding the Information Panel Data 📊
+# Understanding the Information Panel Data 
 
 These are the calculations and meanings behind each metric displayed on the *AnalySAR* information panel.  
 Each value comes from automated geospatial analysis performed directly in the browser using *Turf.js* and data derived from *GeoJSON* files generated in *Google Earth Engine*.
@@ -123,7 +122,7 @@ A lower number could suggest one or a few *large continuous bodies of water*, su
 
 ---
 
-## 🧩 Summary Table
+##  Summary Table
 
 | Metric | Calculated with | Unit | Main Meaning |
 |---------|----------------|-------|---------------|
@@ -134,7 +133,7 @@ A lower number could suggest one or a few *large continuous bodies of water*, su
 
 ---
 
-🔹 These values are updated dynamically each time you select a *year* or *stage* (“Before”, “During”, “After”) within the AnalySAR interface,  
+These values are updated dynamically each time you select a *year* or *stage* (“Before”, “During”, “After”) within the AnalySAR interface,  
 allowing users to compare historical events and observe how water coverage
 
 ## Technological Approach
@@ -152,7 +151,7 @@ This combination enables a fully client-side and open-data workflow, requiring n
 
 ## Impact
 
-By merging *satellite radar data* with *web-based visualization, AnalySAR promotes **environmental transparency and public awareness. It demonstrates that even small teams can build scientifically relevant, high-impact tools using open technology. Beyond Tabasco, the methodology can be adapted for **other flood-prone areas worldwide, contributing to **climate resilience* and *sustainable decision-making*.
+By merging *satellite radar data* with web-based visualization, AnalySAR promotes environmental transparency and public awareness. It demonstrates that even small teams can build scientifically relevant, high-impact tools using open technology. Beyond Tabasco, the methodology can be adapted for other flood-prone areas worldwide, contributing to climate resilience and sustainable decision-making.
 
 ---
 ## Documentation 
@@ -167,14 +166,14 @@ https://analy-sar.vercel.app/
 1. *European Space Agency (ESA).* Sentinel-1 SAR GRD: C-band Synthetic Aperture Radar Ground Range Detected, log scaling.  
    [https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD)
 
-2. *Google Earth Engine.* Guide for Sentinel-1 Data Processing and Visualization.  
-   [https://developers.google.com/earth-engine/tutorials/community/sentinel-1-sar](https://developers.google.com/earth-engine/tutorials/community/sentinel-1-sar)
+2. *Google Earth Engine.* Detecting Changes in Sentinel-1 Imagery (Part 1).  
+   [https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1?hl=en](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1?hl=en)
 
 3. *NASA Earthdata.* Synthetic Aperture Radar (SAR) Missions Overview.  
    [https://earthdata.nasa.gov/learn/backgrounders/synthetic-aperture-radar](https://earthdata.nasa.gov/learn/backgrounders/synthetic-aperture-radar)
 
 4. *Mapbox GL JS.* Interactive Mapping Library Documentation.  
-   [https://docs.mapbox.com/mapbox-gl-js/](https://docs.mapbox.com/mapbox-gl-js/)
+   [https://docs.mapbox.com/mapbox-gl-js/guides](https://docs.mapbox.com/mapbox-gl-js/guides)
 
 5. *Turf.js.* Advanced Geospatial Analysis for the Web.  
    [https://turfjs.org/](https://turfjs.org/)
@@ -182,6 +181,12 @@ https://analy-sar.vercel.app/
 6. *Chart.js.* Open-Source JavaScript Data Visualization Library.  
 
    [https://www.chartjs.org/](https://www.chartjs.org/)
+
+7. *United Nations Sustainable Development*.
+   https://www.un.org/sustainabledevelopment/blog/2015/11/un-report-finds-90-per-cent-of-disasters-are-weather-related/
+
+
+
 
 
 
