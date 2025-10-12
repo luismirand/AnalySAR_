@@ -13,9 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
   <link rel="stylesheet" href="css/style.css" />
-
   <script src="config.js"></script>
-
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -38,12 +36,10 @@
           <span>Luis Alberto Miranda Díaz</span>
           <span class="icon-links">
             <a class="icon-link" href="https://www.linkedin.com/in/luisalbertomirandadiaz/" target="_blank" rel="noopener">
-              <!-- LinkedIn -->
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
               LinkedIn
             </a>
             <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <!-- GitHub -->
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
               GitHub
             </a>
@@ -72,7 +68,7 @@
               LinkedIn
             </a>
             <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34 .73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
               GitHub
             </a>
           </span>
@@ -139,10 +135,11 @@
     </div>
   </main>
 
+
+
   <!-- ============ Map App ============ -->
   <main id="map-app" class="hidden">
     <div id="map-container"></div>
-
     <div id="sidebar-overlay" class="hidden" aria-hidden="true"></div>
 
     <nav id="floating-nav" class="panel" aria-label="Primary">
@@ -154,32 +151,87 @@
       <a href="#" class="nav-link" id="nav-right">About</a>
     </nav>
 
+    <button id="kebab-left" class="kebab-btn" aria-label="Toggle Event Panel" aria-expanded="false">⋮</button>
+    <button id="kebab-right" class="kebab-btn" aria-label="Toggle Control Panel" aria-expanded="false">⋮</button>
 
-    <button id="kebab-left" class="kebab-btn" aria-label="Toggle Event Panel" aria-expanded="true">⋮</button>
-    <button id="kebab-right" class="kebab-btn" aria-label="Toggle Control Panel" aria-expanded="true">⋮</button>
-
-    <!-- Left panel (info + chart) -->
+    <!-- Left panel (chart + info + zscore) -->
     <aside id="left-sidebar-container" class="side-container left" aria-label="Event Panel">
       <section id="event-panel" class="panel side-panel">
         <header class="side-header">
           <h2 class="side-title">Event Panel</h2>
-          <button id="close-left" class="side-close" aria-label="Close Event Panel">✕</button>
+          <button id="close-left" class="side-close" aria-label="Close Event Panel" title="Close panel">✕</button>
         </header>
 
-        <h3 id="info-title"></h3>
-        <div class="info-grid">
-          <span>Severity:</span><strong id="info-severity">---</strong>
-          <span>Area:</span><strong id="info-area">--- km²</strong>
-          <span>% Affected:</span><strong id="info-percentage">--- %</strong>
-          <span>Est. Volume:</span><strong id="info-volume">--- M m³</strong>
-          <span>Polygons:</span><strong id="info-polygons">---</strong>
-        </div>
-        <p class="info-note">*Est. volume assumes 0.5m avg. depth.</p>
+        <h3 id="info-title">—</h3>
 
+        <!-- Primary stage selector -->
+        <div class="control-group compact" title="The selected stage drives the numbers below and the chart.">
+          <label>Primary stage (info & chart)</label>
+          <select id="primary-stage-select" class="select-compact">
+            <option value="Antes">Before (Oct)</option>
+            <option value="Después">After (Nov–Dec)</option>
+            <option value="Comparativo" selected>Flood (Nov–Dec)</option>
+          </select>
+        </div>
+
+        <!-- Chart first -->
         <div id="chart-panel" class="chart-panel">
-          <label id="chart-label">Event Summary</label>
+          <label id="chart-label" title="Area by stage with specific months">Area by Stage (with months)</label>
           <div class="chart-container">
             <canvas id="dashboard-chart" aria-label="Event Summary Chart"></canvas>
+          </div>
+          <div class="chart-legend" id="chart-legend">—</div>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="info-grid">
+          <span>Severity:</span><strong id="info-severity">—</strong>
+          <span>Primary:</span><strong id="primary-label-badge">—</strong>
+          <span>Area:</span><strong id="info-area">— km²</strong>
+          <span>Affected %:</span><strong id="info-percentage">— %</strong>
+          <span title="Assuming average depth 0.5 m">Est. Volume:</span><strong id="info-volume">— M m³</strong>
+          <span>Polygons:</span><strong id="info-polygons">—</strong>
+        </div>
+        <p class="info-note">*Volume assumes 0.5 m average depth.</p>
+
+        <!-- Z-score card -->
+        <div class="zscore-card">
+          <div class="z-header">
+            <span>Z-score & Difference Stats</span>
+            <details class="z-help">
+              <summary title="Tap to learn more">What is this?</summary>
+              <p>
+                We compute the difference image <em>(After − Before)</em>.  
+                Mean <strong>μ</strong> and standard deviation <strong>σ</strong> are estimated over Tabasco.  
+                The flood mask is all pixels where <strong>diff &lt; μ − kσ</strong> (k is a sensitivity factor).
+              </p>
+            </details>
+          </div>
+          <div class="z-grid">
+            <div class="z-item" title="Mean of the difference image (dB)">
+              <div class="z-title">μ (mean)</div><div class="z-val" id="z-mu">—</div>
+            </div>
+            <div class="z-item" title="Standard deviation of the difference image (dB)">
+              <div class="z-title">σ (std dev)</div><div class="z-val" id="z-sigma">—</div>
+            </div>
+            <div class="z-item" title="Sensitivity factor">
+              <div class="z-title">k</div><div class="z-val" id="z-k">—</div>
+            </div>
+            <div class="z-item" title="Threshold used to flag flood pixels">
+              <div class="z-title">Threshold (μ − kσ)</div><div class="z-val" id="z-threshold">—</div>
+            </div>
+            <div class="z-item" title="Minimum value of the difference (dB)">
+              <div class="z-title">Diff Min</div><div class="z-val" id="z-diffmin">—</div>
+            </div>
+            <div class="z-item" title="Maximum value of the difference (dB)">
+              <div class="z-title">Diff Max</div><div class="z-val" id="z-diffmax">—</div>
+            </div>
+            <div class="z-item" title="Number of Sentinel-1 scenes in the Before window">
+              <div class="z-title">Imgs (Before)</div><div class="z-val" id="z-imgs-before">—</div>
+            </div>
+            <div class="z-item" title="Number of Sentinel-1 scenes in the After window">
+              <div class="z-title">Imgs (After)</div><div class="z-val" id="z-imgs-after">—</div>
+            </div>
           </div>
         </div>
       </section>
@@ -190,47 +242,53 @@
       <section class="panel side-panel">
         <header class="side-header">
           <h2 class="side-title">Control Panel</h2>
-          <button id="close-right" class="side-close" aria-label="Close Control Panel">✕</button>
+          <button id="close-right" class="side-close" aria-label="Close Control Panel" title="Close panel">✕</button>
         </header>
 
-        <div class="control-group">
+        <!-- Layers -->
+        <div class="control-group" title="Toggle layers">
+          <label>Layers</label>
+          <div class="layer-checks">
+            <label><input type="checkbox" id="layer-before"> Show Before (A)</label>
+            <label><input type="checkbox" id="layer-after" checked> Show After (P)</label>
+            <label><input type="checkbox" id="layer-comparative" checked> Show Flood (Comparative)</label>
+          </div>
+          <div class="legend-inline">
+            <span class="chip chip-before" title="Before / Light blue">Before</span>
+            <span class="chip chip-after"  title="After / Deep blue">After</span>
+            <span class="chip chip-flood"  title="Flood / Orange">Flood</span>
+          </div>
+        </div>
+
+        <!-- Map style -->
+        <div class="control-group" title="Switch the basemap style">
           <label>Map Style</label>
           <div id="map-style-controls" class="segmented-control" role="group" aria-label="Map style">
-            <button class="style-btn" data-style="dark-v11">Dark</button>
-            <button class="style-btn active" data-style="satellite-streets-v12">Satellite</button>
+            <button class="style-btn active" data-style="dark-v11" title="Dark theme">Dark</button>
+            <button class="style-btn" data-style="satellite-streets-v12" title="Satellite imagery + streets">Satellite</button>
           </div>
         </div>
 
-        <div class="control-group">
-          <label>Water Color</label>
-          <div id="water-color-controls" class="color-swatch-container" role="group" aria-label="Water color">
-            <button class="color-swatch active" data-color="#22d3ee" style="background-color:#22d3ee;" aria-label="Cyan"></button>
-            <button class="color-swatch" data-color="#00ff80" style="background-color:#00ff80;" aria-label="Green"></button>
-            <button class="color-swatch" data-color="#ff00ff" style="background-color:#ff00ff;" aria-label="Magenta"></button>
-          </div>
-        </div>
-
+        <!-- Visualization controls -->
         <div class="visualization-controls">
-          <div class="control-group">
-            <label for="opacity-slider">Opacity (<span id="opacity-value">75</span>%)</label>
-            <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.75" />
+          <div class="control-group" title="Adjust polygon transparency">
+            <label for="opacity-slider">Opacity (<span id="opacity-value">100</span>%)</label>
+            <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="1" />
           </div>
 
-          <button id="toggle-labels-btn" class="btn-secondary" aria-pressed="false">Hide Labels</button>
-          <button id="toggle-border-btn" class="btn-secondary" aria-pressed="true">Hide Border</button>
-          <button id="toggle-3d-btn" class="btn-primary" aria-pressed="true">Disable 3D View</button>
+          <button id="toggle-labels-btn" class="btn-secondary wide" aria-pressed="false" title="Show/Hide map labels">Hide Labels</button>
+          <button id="toggle-border-btn" class="btn-secondary wide" aria-pressed="true" title="Show/Hide state boundary">Hide Border</button>
+          <button id="toggle-3d-btn" class="btn-primary wide" aria-pressed="true" title="Enable/Disable terrain 3D">Disable 3D View</button>
         </div>
       </section>
     </aside>
 
     <!-- Timeline -->
-    <div id="timeline-container" class="panel timeline-with-arrows" aria-label="Timeline">
+    <div id="timeline-container" class="panel timeline-with-arrows" aria-label="Timeline" title="Jump by year">
       <button id="timeline-left-btn" class="tl-arrow" aria-label="Scroll left">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
-      <div id="timeline" class="timeline-wrapper">
-        <div class="timeline-line"></div>
-      </div>
+      <div id="timeline" class="timeline-wrapper"></div>
       <button id="timeline-right-btn" class="tl-arrow" aria-label="Scroll right">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
