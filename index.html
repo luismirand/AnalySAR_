@@ -1,295 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AnalySAR - Flood Viewer</title>
 
-  <link rel="icon" href="img/LOGOANALYSAR.png" type="image/x-icon">
-
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="icon" href="img/LOGOANALYSAR.png" type="image/png"/>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet"/>
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+
   <script src="https://npmcdn.com/@turf/turf@6.5.0/turf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css"/>
+
   <script src="config.js"></script>
+
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- ============ Welcome Screen ============ -->
+  <!-- ====================== HOME ====================== -->
   <main id="welcome-screen">
     <div class="welcome-content">
-      <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="welcome-logo">
+      <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="welcome-logo"/>
       <h1 class="welcome-title">AnalySAR</h1>
-      <p class="welcome-subtitle">Flood Analysis with Synthetic Aperture Radar Data</p>
-      <button id="enter-app-btn" class="enter-button">Explore Map</button>
-    </div>
-
-    <div id="project-info" class="project-info-container">
-      <h3>About the Project</h3>
-      <p><strong>AnalySAR</strong> is a prototype developed for the <strong>NASA International Space Apps Challenge 2025</strong>. It utilizes Synthetic Aperture Radar (SAR) data from the Sentinel-1 satellite to detect and quantify water bodies and flood zones in Tabasco, Mexico, over several years.</p>
-
-      <h4>The Team</h4>
-      <ul>
-        <li>
-          <span>Luis Alberto Miranda Díaz</span>
-          <span class="icon-links">
-            <a class="icon-link" href="https://www.linkedin.com/in/luisalbertomirandadiaz/" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span>Edson Adan Lopez Carbajal</span>
-          <span class="icon-links">
-            <a class="icon-link" href="https://www.linkedin.com/in/edson-adan-lopez-carbajal-2373a5290/" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span>María José Barragán Rosado</span>
-          <span class="icon-links">
-            <a class="icon-link" href="http://www.linkedin.com/in/mar%C3%ADa-jos%C3%A9-barrag%C3%A1n-rosado-125633237" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34 .73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span>Mauro Acuña Olivarria</span>
-          <span class="icon-links">
-            <a class="icon-link" href="http://www.linkedin.com/in/mauro-acu%C3%B1a-olivarria-643744356" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span>Armando Ilianov Lizarraga Duarte</span>
-          <span class="icon-links">
-            <a class="icon-link" href="https://www.linkedin.com/in/armando-ilianov-lizarraga-duarte-46b333256/" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span>Jose Miguel Castro Cazarez</span>
-          <span class="icon-links">
-            <a class="icon-link" href="http://www.linkedin.com/in/josemiguelcastrocazarez" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.09V23h-4v-7.1c0-1.69-.03-3.86-2.35-3.86-2.35 0-2.71 1.83-2.71 3.73V23h-4V8z"/></svg>
-              LinkedIn
-            </a>
-            <a class="icon-link" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-              GitHub
-            </a>
-          </span>
-        </li>
-      </ul>
-
-      <h4>Repository</h4>
-      <p class="icon-links">
-        <a class="icon-link" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
-          Project GitHub
-        </a>
+      <p class="welcome-subtitle">
+        Prototype for NASA Space Apps 2025. Explore multi-year floods in Tabasco, MX using Sentinel-1 SAR, GEE preprocessing, and a 3D web viewer.
       </p>
 
-      <h4>References & Sources</h4>
-      <ul>
-        <li><strong>SAR Data:</strong> <a href="https://sentinels.copernicus.eu/web/sentinel/copernicus/sentinel-1" target="_blank" rel="noopener noreferrer">Copernicus Sentinel-1 Mission</a>, processed via <a href="https://earthengine.google.com/" target="_blank" rel="noopener noreferrer">Google Earth Engine</a>.</li>
-        <li><strong>SAR Search Tool:</strong> <a href="https://search.asf.alaska.edu/" target="_blank" rel="noopener noreferrer">Alaska Satellite Facility</a>.</li>
-        <li><strong>Basemap & DEM:</strong> <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">Mapbox</a> Satellite and Terrain-DEM v1.</li>
-        <li><strong>Libraries:</strong> <a href="https://mapbox.com/mapbox-gl-js/" target="_blank" rel="noopener noreferrer">Mapbox GL JS</a>, <a href="https://turfjs.org/" target="_blank" rel="noopener noreferrer">Turf.js</a>, <a href="https://www.chartjs.org/" target="_blank" rel="noopener noreferrer">Chart.js</a>.</li>
-      </ul>
+      <button id="enter-app-btn" class="enter-button" aria-label="Explore Map">Explore Map</button>
+
+      <div class="home-links">
+        <a class="home-link" href="analysis.html" title="How the metrics and Z-score work">Analysis</a>
+        <a class="home-link" href="about.html" title="Team & background">About</a>
+        <a class="home-link" href="https://github.com/luismirand/AnalySAR_" target="_blank" rel="noopener" title="Project repo">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="margin-right:6px"><path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.78-1.34-1.78-1.09-.75.08-.74.08-.74 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.2-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.22a11.5 11.5 0 0 1 6 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.24 2.87.12 3.17.77.83 1.24 1.9 1.24 3.2 0 4.58-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-info-container">
+      <h3>Project</h3>
+      <p>
+        Interactive viewer for Tabasco floods. Layers: <em>Before</em> (Oct), <em>After</em> (Nov–Dec), and <em>All Water (Inundation)</em> from a Z-score mask.
+      </p>
     </div>
   </main>
 
-
-
-  <!-- ============ Map App ============ -->
+  <!-- ====================== MAP APP ====================== -->
   <main id="map-app" class="hidden">
     <div id="map-container"></div>
     <div id="sidebar-overlay" class="hidden" aria-hidden="true"></div>
 
     <nav id="floating-nav" class="panel" aria-label="Primary">
-      <a href="#" class="nav-link" id="nav-left">Docs</a>
+      <a href="analysis.html" class="nav-link">Analysis</a>
       <a href="#" id="home-link" class="brand-center" aria-label="Home">
-        <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="app-logo">
+        <img src="img/LOGOANALYSAR.png" alt="AnalySAR Logo" class="app-logo"/>
         <span class="app-name">AnalySAR</span>
       </a>
-      <a href="#" class="nav-link" id="nav-right">About</a>
+      <a href="about.html" class="nav-link">About</a>
     </nav>
 
-    <button id="kebab-left" class="kebab-btn" aria-label="Toggle Event Panel" aria-expanded="false">⋮</button>
-    <button id="kebab-right" class="kebab-btn" aria-label="Toggle Control Panel" aria-expanded="false">⋮</button>
+    <button id="kebab-left" class="kebab-btn" aria-label="Toggle left panel">⋮</button>
+    <button id="kebab-right" class="kebab-btn" aria-label="Toggle right panel">⋮</button>
 
-    <!-- Left panel (chart + info + zscore) -->
-    <aside id="left-sidebar-container" class="side-container left" aria-label="Event Panel">
-      <section id="event-panel" class="panel side-panel">
+    <!-- Left panel -->
+    <aside id="left-sidebar-container" class="side-container left">
+      <section class="panel side-panel">
         <header class="side-header">
           <h2 class="side-title">Event Panel</h2>
-          <button id="close-left" class="side-close" aria-label="Close Event Panel" title="Close panel">✕</button>
+          <button id="close-left" class="side-close" title="Close">✕</button>
         </header>
 
-        <h3 id="info-title">—</h3>
-
-        <!-- Primary stage selector -->
-        <div class="control-group compact" title="The selected stage drives the numbers below and the chart.">
-          <label>Primary stage (info & chart)</label>
-          <select id="primary-stage-select" class="select-compact">
-            <option value="Antes">Before (Oct)</option>
-            <option value="Después">After (Nov–Dec)</option>
-            <option value="Comparativo" selected>Flood (Nov–Dec)</option>
-          </select>
+        <div class="control-group compact">
+          <label>Primary stage</label>
+          <div id="primary-pills" class="pill-select">
+            <button class="pill active" data-stage="Antes">Oct</button>
+            <button class="pill" data-stage="Después">Nov–Dec</button>
+            <button class="pill" data-stage="Comparativo">All Water</button>
+          </div>
+          <div class="hint">Oct = “Before”, Nov–Dec = “After”, All Water = flood mask (Z-score)</div>
         </div>
 
-        <!-- Chart first -->
-        <div id="chart-panel" class="chart-panel">
-          <label id="chart-label" title="Area by stage with specific months">Area by Stage (with months)</label>
+        <h3 id="info-title" style="margin-top:6px;">Tabasco, Oct 2020</h3>
+
+        <div class="card">
+          <div class="card-title">General Information</div>
+          <div class="info-grid spaced">
+            <span>Severity</span><strong id="info-severity">—</strong>
+            <span>Primary</span><strong id="primary-label-badge">Oct 2020</strong>
+            <span>Area</span><strong id="info-area">— km²</strong>
+            <span>Affected %</span><strong id="info-percentage">— %</strong>
+            <span>Mean depth</span><strong id="info-meandepth">0.50 m</strong>
+            <span>Volume</span><strong id="info-volume">— M m³</strong>
+            <span>Polygons</span><strong id="info-polygons">—</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Area by stage (with months)</div>
           <div class="chart-container">
             <canvas id="dashboard-chart" aria-label="Event Summary Chart"></canvas>
           </div>
           <div class="chart-legend" id="chart-legend">—</div>
         </div>
 
-        <!-- Quick stats -->
-        <div class="info-grid">
-          <span>Severity:</span><strong id="info-severity">—</strong>
-          <span>Primary:</span><strong id="primary-label-badge">—</strong>
-          <span>Area:</span><strong id="info-area">— km²</strong>
-          <span>Affected %:</span><strong id="info-percentage">— %</strong>
-          <span title="Assuming average depth 0.5 m">Est. Volume:</span><strong id="info-volume">— M m³</strong>
-          <span>Polygons:</span><strong id="info-polygons">—</strong>
-        </div>
-        <p class="info-note">*Volume assumes 0.5 m average depth.</p>
-
-        <!-- Z-score card -->
-        <div class="zscore-card">
-          <div class="z-header">
-            <span>Z-score & Difference Stats</span>
+        <div class="card">
+          <div class="card-title row">
+            <span>Z-score & Difference stats</span>
             <details class="z-help">
-              <summary title="Tap to learn more">What is this?</summary>
+              <summary>What is this?</summary>
               <p>
-                We compute the difference image <em>(After − Before)</em>.  
-                Mean <strong>μ</strong> and standard deviation <strong>σ</strong> are estimated over Tabasco.  
-                The flood mask is all pixels where <strong>diff &lt; μ − kσ</strong> (k is a sensitivity factor).
+                We compute <em>After − Before</em>. Mean (<strong>μ</strong>) and std dev (<strong>σ</strong>) over the AOI.  
+                Flood = pixels where <strong>diff &lt; μ − kσ</strong>.
               </p>
             </details>
           </div>
-          <div class="z-grid">
-            <div class="z-item" title="Mean of the difference image (dB)">
-              <div class="z-title">μ (mean)</div><div class="z-val" id="z-mu">—</div>
-            </div>
-            <div class="z-item" title="Standard deviation of the difference image (dB)">
-              <div class="z-title">σ (std dev)</div><div class="z-val" id="z-sigma">—</div>
-            </div>
-            <div class="z-item" title="Sensitivity factor">
-              <div class="z-title">k</div><div class="z-val" id="z-k">—</div>
-            </div>
-            <div class="z-item" title="Threshold used to flag flood pixels">
-              <div class="z-title">Threshold (μ − kσ)</div><div class="z-val" id="z-threshold">—</div>
-            </div>
-            <div class="z-item" title="Minimum value of the difference (dB)">
-              <div class="z-title">Diff Min</div><div class="z-val" id="z-diffmin">—</div>
-            </div>
-            <div class="z-item" title="Maximum value of the difference (dB)">
-              <div class="z-title">Diff Max</div><div class="z-val" id="z-diffmax">—</div>
-            </div>
-            <div class="z-item" title="Number of Sentinel-1 scenes in the Before window">
-              <div class="z-title">Imgs (Before)</div><div class="z-val" id="z-imgs-before">—</div>
-            </div>
-            <div class="z-item" title="Number of Sentinel-1 scenes in the After window">
-              <div class="z-title">Imgs (After)</div><div class="z-val" id="z-imgs-after">—</div>
-            </div>
+          <div class="z-grid spaced">
+            <div class="z-item"><div class="z-title">μ (mean)</div><div class="z-val" id="z-mu">—</div></div>
+            <div class="z-item"><div class="z-title">σ (std dev)</div><div class="z-val" id="z-sigma">—</div></div>
+            <div class="z-item"><div class="z-title">k</div><div class="z-val" id="z-k">—</div></div>
+            <div class="z-item"><div class="z-title">Threshold</div><div class="z-val" id="z-threshold">—</div></div>
+            <div class="z-item"><div class="z-title">Diff Min</div><div class="z-val" id="z-diffmin">—</div></div>
+            <div class="z-item"><div class="z-title">Diff Max</div><div class="z-val" id="z-diffmax">—</div></div>
+            <div class="z-item"><div class="z-title">Imgs (Before)</div><div class="z-val" id="z-imgs-before">—</div></div>
+            <div class="z-item"><div class="z-title">Imgs (After)</div><div class="z-val" id="z-imgs-after">—</div></div>
           </div>
         </div>
       </section>
     </aside>
 
-    <!-- Right: Control Panel -->
-    <aside id="dashboard-panel" class="side-container right" aria-label="Control Panel">
+    <!-- Right panel -->
+    <aside id="dashboard-panel" class="side-container right">
       <section class="panel side-panel">
         <header class="side-header">
           <h2 class="side-title">Control Panel</h2>
-          <button id="close-right" class="side-close" aria-label="Close Control Panel" title="Close panel">✕</button>
+          <button id="close-right" class="side-close" title="Close">✕</button>
         </header>
 
-        <!-- Layers -->
-        <div class="control-group" title="Toggle layers">
+        <div class="control-group">
           <label>Layers</label>
-          <div class="layer-checks">
-            <label><input type="checkbox" id="layer-before"> Show Before (A)</label>
-            <label><input type="checkbox" id="layer-after" checked> Show After (P)</label>
-            <label><input type="checkbox" id="layer-comparative" checked> Show Flood (Comparative)</label>
+          <div id="layer-pills" class="pill-select multi">
+            <button class="pill on" data-layer="before">
+              <span class="dot" style="--c:#66CCFF"></span> Before (Oct)
+            </button>
+            <button class="pill" data-layer="after">
+              <span class="dot" style="--c:#304FFE"></span> After (Nov–Dec)
+            </button>
+            <button class="pill" data-layer="flood">
+              <span class="dot" style="--c:#FF9800"></span> All Water (Inundation)
+            </button>
           </div>
-          <div class="legend-inline">
-            <span class="chip chip-before" title="Before / Light blue">Before</span>
-            <span class="chip chip-after"  title="After / Deep blue">After</span>
-            <span class="chip chip-flood"  title="Flood / Orange">Flood</span>
-          </div>
+          <p class="small-note">“All Water (Inundation)” is the flood mask used in our GEE workflow.</p>
         </div>
 
-        <!-- Map style -->
-        <div class="control-group" title="Switch the basemap style">
+        <div class="control-group">
           <label>Map Style</label>
-          <div id="map-style-controls" class="segmented-control" role="group" aria-label="Map style">
-            <button class="style-btn active" data-style="dark-v11" title="Dark theme">Dark</button>
-            <button class="style-btn" data-style="satellite-streets-v12" title="Satellite imagery + streets">Satellite</button>
+          <div id="map-style-controls" class="segmented-control">
+            <button class="style-btn" data-style="dark-v11">Dark</button>
+            <button class="style-btn active" data-style="satellite-streets-v12">Satellite</button>
           </div>
         </div>
 
-        <!-- Visualization controls -->
         <div class="visualization-controls">
-          <div class="control-group" title="Adjust polygon transparency">
+          <div class="control-group">
             <label for="opacity-slider">Opacity (<span id="opacity-value">100</span>%)</label>
-            <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="1" />
+            <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="1"/>
           </div>
 
-          <button id="toggle-labels-btn" class="btn-secondary wide" aria-pressed="false" title="Show/Hide map labels">Hide Labels</button>
-          <button id="toggle-border-btn" class="btn-secondary wide" aria-pressed="true" title="Show/Hide state boundary">Hide Border</button>
-          <button id="toggle-3d-btn" class="btn-primary wide" aria-pressed="true" title="Enable/Disable terrain 3D">Disable 3D View</button>
+          <div class="stacked-actions">
+            <button id="toggle-labels-btn" class="btn-secondary wide" aria-pressed="false">Hide Labels</button>
+            <button id="toggle-border-btn" class="btn-secondary wide" aria-pressed="true">Hide Border</button>
+            <button id="toggle-3d-btn" class="btn-primary wide" aria-pressed="true">Disable 3D View</button>
+          </div>
         </div>
       </section>
     </aside>
 
     <!-- Timeline -->
-    <div id="timeline-container" class="panel timeline-with-arrows" aria-label="Timeline" title="Jump by year">
-      <button id="timeline-left-btn" class="tl-arrow" aria-label="Scroll left">
+    <div id="timeline-container" class="panel timeline-with-arrows" aria-label="Timeline">
+      <button id="timeline-left-btn" class="tl-arrow" aria-label="Left">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
-      <div id="timeline" class="timeline-wrapper"></div>
-      <button id="timeline-right-btn" class="tl-arrow" aria-label="Scroll right">
+      <div id="timeline" class="timeline-wrapper" tabindex="0" aria-label="Years"></div>
+      <button id="timeline-right-btn" class="tl-arrow" aria-label="Right">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
     </div>

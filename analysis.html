@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnalySAR — Analysis</title>
+  <link rel="icon" href="img/LOGOANALYSAR.png" type="image/png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="doc-body">
+  <header class="doc-header">
+    <a href="index.html" class="back-link">← Back to Viewer</a>
+    <h1>AnalySAR — Analysis</h1>
+    <p class="subtitle">
+      How we process Sentinel-1 and how to interpret the information panel, metrics and the flood <strong>Z-score</strong>.
+    </p>
+    <div class="tags-row">
+      <span class="tag">AOI: <b>Tabasco, MX</b></span>
+      <span class="tag">Windows: <b>Oct · Nov–Dec</b></span>
+      <span class="tag">Mask: <b>Z-score threshold</b></span>
+      <span class="tag">Volume*: <b>Area × 0.5 m</b></span>
+    </div>
+    <p class="small-note">*Volume is a simple estimate using an assumed mean depth of 0.5 m.</p>
+  </header>
+
+  <main class="doc-main">
+
+    <section class="doc-grid">
+      <div class="doc-card">
+        <h2>1) Processing pipeline (Google Earth Engine)</h2>
+        <ul class="bullet">
+          <li><b>Data:</b> Sentinel-1 GRD (IW, VV polarization), clipped to Tabasco.</li>
+          <li><b>Temporal compositing:</b> monthly averages for <b>Oct</b> (Before) and <b>Nov–Dec</b> (After) per year.</li>
+          <li><b>Difference image:</b> <code>D = After − Before</code> (dB).</li>
+          <li><b>Z-score flood mask:</b> pixels where <code>D &lt; μ − kσ</code> using μ,σ computed over the AOI.</li>
+          <li><b>Exports:</b> GeoJSON layers (Before / After / All Water) and a CSV with μ, σ, k, threshold, min/max and scene counts.</li>
+        </ul>
+      </div>
+
+      <div class="doc-card">
+        <h2>2) Web visualization</h2>
+        <ul class="bullet">
+          <li><b>Mapbox GL JS:</b> 3D terrain, interactive layers rendered as <code>fill-extrusion</code> (color = stage).</li>
+          <li><b>Turf.js:</b> computes per-layer water area (km²), affected %, polygon count.</li>
+          <li><b>Chart.js:</b> side-by-side view of Oct vs Nov–Dec vs “All Water”.</li>
+          <li><b>UI:</b> pills to pick primary stage; pretty layer toggles; centered timeline; mobile-friendly panels.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="doc-card">
+      <h2>3) Information panel — metrics</h2>
+      <div class="table-scroll">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Metric</th><th>How we compute it</th><th>Unit</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Area</td>
+              <td><code>turf.area(geojson) / 1e6</code></td>
+              <td>km²</td>
+              <td>Total surface covered by water (per stage and year).</td>
+            </tr>
+            <tr>
+              <td>Affected %</td>
+              <td><code>Area / 24,738 × 100</code></td>
+              <td>%</td>
+              <td>Share of Tabasco’s area that is water for that layer.</td>
+            </tr>
+            <tr>
+              <td>Estimated Volume</td>
+              <td><code>Area (m²) × 0.5 m</code> → divided by <code>1e6</code></td>
+              <td>M m³</td>
+              <td>Magnitude estimate with a constant mean depth (0.5 m).</td>
+            </tr>
+            <tr>
+              <td>Polygons</td>
+              <td><code>geojson.features.length</code></td>
+              <td>count</td>
+              <td>Fragmentation: many small patches vs few large water bodies.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-card">
+      <h2>4) Z-score flood mask — deeper dive</h2>
+      <p>
+        For each year we compute a difference image <code>D = After − Before</code> (both are Sentinel-1 VV averages in dB).  
+        Over the AOI we estimate the mean <b>μ</b> and standard deviation <b>σ</b> of <code>D</code>.  
+        Then we pick a sensitivity <b>k</b> (typically 1.5), and flag floods where <code>D &lt; μ − kσ</code>.
+      </p>
+      <div class="z-grid spaced doc-z">
+        <div><div class="z-title">Mean (μ)</div><div class="z-val">Average of D (dB)</div></div>
+        <div><div class="z-title">Std Dev (σ)</div><div class="z-val">Spread of D (dB)</div></div>
+        <div><div class="z-title">k</div><div class="z-val">Sensitivity (≈ 1.0–2.0)</div></div>
+        <div><div class="z-title">Threshold</div><div class="z-val"><b>μ − kσ</b> (dB)</div></div>
+      </div>
+
+      <div class="table-scroll" style="margin-top:10px">
+        <table class="doc-table">
+          <thead><tr><th>k</th><th>Behavior</th><th>When to use</th></tr></thead>
+          <tbody>
+            <tr><td>1.0</td><td>More sensitive (more pixels flagged)</td><td>Exploratory analysis, wetter periods</td></tr>
+            <tr><td>1.5</td><td>Balanced</td><td>General purpose</td></tr>
+            <tr><td>2.0</td><td>Conservative (fewer pixels)</td><td>Reducing false positives</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:10px">
+        The “<b>All Water</b>” layer in the viewer corresponds to the area where this Z-score condition holds.  
+        The info card exposes μ, σ, the chosen k, and the resulting threshold, plus the min/max of D and the number of scenes used in the Oct and Nov–Dec windows.
+      </p>
+    </section>
+
+    <section class="doc-card">
+      <h2>5) Assumptions & caveats</h2>
+      <ul class="bullet">
+        <li><b>Backscatter drop ≠ depth:</b> SAR is excellent at detecting water surfaces, not depth. Volume is an approximation using a constant 0.5 m.</li>
+        <li><b>Wind & roughness:</b> rough water or emergent vegetation may alter VV backscatter; Z-score helps but is not perfect.</li>
+        <li><b>Temporal windows:</b> Monthly averages reduce noise but may dilute short-lived floods.</li>
+        <li><b>GeoJSON granularity:</b> Vectorization can split continuous surfaces into multiple polygons.</li>
+      </ul>
+    </section>
+
+  </main>
+</body>
+</html>
