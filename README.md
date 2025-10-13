@@ -1,4 +1,4 @@
-# AnalySAR 💧
+# AnalySAR
 ### Team MicroOndeados
 
 [![Vercel Deployment](https://img.shields.io/badge/Deployment-Vercel-black?style=for-the-badge&logo=vercel)](https://analy-sar.vercel.app/)
@@ -122,3 +122,4 @@ We are a multidisciplinary group of students and developers passionate about rad
 5.  *Turf.js.* [Website](https://turfjs.org/)
 6.  *Chart.js.* [Website](https://www.chartjs.org/)
 7.  *United Nations.* [UN Report on Weather-Related Disasters](https://www.un.org/sustainabledevelopment/blog/2015/11/un-report-finds-90-per-cent-of-disasters-are-weather-related/)
+
