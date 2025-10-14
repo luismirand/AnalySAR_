@@ -116,15 +116,125 @@
       </p>
     </section>
 
-    <section class="doc-card">
-      <h2>5) Assumptions & caveats</h2>
+
+<!-- 4a) Visual walkthrough — the four layers -->
+<section class="doc-card">
+  <h2>4a) Visual walkthrough — the four layers</h2>
+  <p class="subtitle">Each image is a snapshot from Google Earth Engine for Tabasco.</p>
+
+  <div class="doc-grid doc-grid-images">
+    <figure class="doc-figure">
+      <img src="img/analysis/Before.png" alt="Sentinel-1 VV composite — October (Before)" loading="lazy" />
+      <figcaption>
+        <b>Before (October)</b> — VV backscatter (dB) prior to peak floods.  
+        Dark tones ≈ calm open water / smooth surfaces; bright tones ≈ roughness (urban, vegetation).
+      </figcaption>
+    </figure>
+
+    <figure class="doc-figure">
+      <img src="img/analysis/After.png" alt="Sentinel-1 VV composite — Nov–Dec (After)" loading="lazy" />
+      <figcaption>
+        <b>After (Nov–Dec)</b> — VV backscatter after the event window.  
+        Newly formed/expanded water tends to appear darker relative to October where inundation occurs.
+      </figcaption>
+    </figure>
+
+    <figure class="doc-figure">
+      <img src="img/analysis/Difference.png" alt="Difference image D = After − Before (dB)" loading="lazy" />
+      <figcaption>
+        <b>Difference (After − Before)</b> — per-pixel change in dB.  
+       
+      </figcaption>
+    </figure>
+
+    <figure class="doc-figure">
+      <img src="img/analysis/Zscore.png" alt="Z-score mask: pixels where D < μ − kσ" loading="lazy" />
+      <figcaption>
+        <b>Flood (Z-score)</b> — Mask of pixels where <code>D &lt; μ − kσ</code> (cyan).  
+        This is what we vectorize and publish as <i>All Water</i> in the viewer; it adapts per year to scene statistics.
+      </figcaption>
+    </figure>
+  </div>
+
+  <ul class="bullet" style="margin-top:8px">
+    <li><b>Why difference?</b> It cancels static bright/dark patterns and highlights change tied to inundation.</li>
+    <li><b>Why Z-score?</b> A scene-adaptive threshold reduces false positives from wind, incidence angle and local texture.</li>
+    <li><b>Tip:</b> Check the info card (μ, σ, k, threshold, min/max, scene counts) to judge year-to-year comparability.</li>
+  </ul>
+</section>
+<!-- 4b) Study hypothesis — rationale and testable predictions -->
+<section class="doc-card">
+  <h2>4b) Study hypothesis — rationale and testable predictions</h2>
+
+  <p class="subtitle">
+    <b>Hypothesis.</b> If we extract yearly “Before/After” Sentinel-1 VV composites from Google Earth Engine (GEE),
+    compute the difference image <code>D = After − Before</code>, and classify floods with a scene-adaptive
+    Z-score threshold, then the resulting vectors will consistently delineate seasonal inundation in Tabasco and
+    track interannual variability with sufficient fidelity to support planning and risk monitoring.
+  </p>
+
+  <div class="doc-grid">
+    <div class="doc-card" style="background:rgba(255,255,255,.03)">
+      <h3>Why this should work</h3>
       <ul class="bullet">
-        <li><b>Backscatter drop ≠ depth:</b> SAR is excellent at detecting water surfaces, not depth. Volume is an approximation using a constant 0.5 m.</li>
-        <li><b>Wind & roughness:</b> rough water or emergent vegetation may alter VV backscatter; Z-score helps but is not perfect.</li>
-        <li><b>Temporal windows:</b> Monthly averages reduce noise but may dilute short-lived floods.</li>
-        <li><b>GeoJSON granularity:</b> Vectorization can split continuous surfaces into multiple polygons.</li>
+        <li><b>Physics:</b> Calm open water strongly reduces VV backscatter (appears darker). Flooding therefore drives negative change in dB.</li>
+        <li><b>Change logic:</b> Differencing (<code>After − Before</code>) cancels static brightness patterns and highlights event-driven change.</li>
+        <li><b>Adaptivity:</b> A Z-score threshold (<code>D &lt; μ − kσ</code>) adapts to each year’s distribution, controlling false positives across scenes.</li>
+        <li><b>Smoothing + vectorization:</b> Median filters remove speckle; polygonization yields operational, GIS-ready layers.</li>
       </ul>
-    </section>
+    </div>
+
+    <div class="doc-card" style="background:rgba(255,255,255,.03)">
+      <h3>How we extracted data</h3>
+      <ul class="bullet">
+        <li><b>Source:</b> <code>COPERNICUS/S1_GRD</code> (IW, VV), clipped to Tabasco AOI.</li>
+        <li><b>Windows:</b> <b>Before = Oct 1–15</b>, <b>After = Nov 20–Dec 5</b> (per year 2014–2025).</li>
+        <li><b>Composites:</b> Mosaic within each window, then apply <code>focal_median</code> to reduce speckle.</li>
+        <li><b>Difference:</b> <code>D = After_s − Before_s</code>; compute <b>μ</b>, <b>σ</b>, <b>min/max</b> over the AOI.</li>
+        <li><b>Z-score mask:</b> Flag floods where <code>D &lt; μ − kσ</code> with <code>k ≈ 1.5</code>; self-mask and vectorize (area filter).</li>
+        <li><b>Exports:</b> GeoJSON for <i>Before</i>, <i>After</i>, and <i>All Water (Z-score)</i> plus a per-year CSV of stats (μ, σ, k, threshold, min/max, scene counts).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table-scroll" style="margin-top:10px">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>Prediction if hypothesis holds</th>
+          <th>How we check it</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Negative differences concentrate along rivers, floodplains and wetlands during known flood years.</td>
+          <td>Visual agreement with basemap hydrography; spatial overlap with “All Water” vectors.</td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+          <td>Z-score threshold remains stable despite varying image counts/incidence angle.</td>
+          <td>Review μ, σ, k, threshold in the info panel; absence of spurious large areas in dry years.</td>
+        </tr>
+        <tr>
+          <td>Vector polygons align with water bodies on the “After” composite and recede on the “Before”.</td>
+          <td>Side-by-side inspection of the four images and interactive layers.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:12px">What would falsify it?</h3>
+  <ul class="bullet">
+    <li>Large Z-score areas consistently appear on slopes/urban zones with no visual darkening in VV.</li>
+    <li>Trends in area (km²) contradict independent seasonal signals across multiple years.</li>
+    <li>Reasonable <code>k</code> values (1.0–2.0) fail to separate flood from background in typical years.</li>
+  </ul>
+
+  <p class="small-note" style="margin-top:8px">
+    Note: Volume shown in the dashboard uses a simple <i>mean depth = 0.5 m</i> assumption and is intended as magnitude only.
+  </p>
+</section>
 
   </main>
 </body>

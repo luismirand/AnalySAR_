@@ -125,3 +125,45 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
   .doc-header,.doc-main{padding:0 12px}
   .doc-card{padding:14px}
 }
+
+/* ==== Analysis images: fix stacking/overflow ==== */
+.doc-figure{
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+  min-width:0;                 /* evita overflow en grids */
+}
+.doc-figure img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  box-shadow:0 6px 22px rgba(0,0,0,.25);
+}
+.doc-figure figcaption{
+  font-size:.92rem;
+  line-height:1.35;
+  color:#c9d6f5;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:.6rem .75rem;
+}
+
+/* Chips/legend pequeños debajo de “Difference” */
+.legend{display:inline-flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.chip{width:14px;height:14px;border-radius:3px;display:inline-block}
+
+/* Grid específico para la sección de imágenes */
+.doc-grid.doc-grid-images{
+  grid-template-columns:1fr;   /* 1 columna por defecto */
+  gap:12px;
+}
+@media (min-width:1000px){
+  .doc-grid.doc-grid-images{   /* 2 columnas en escritorio ancho */
+    grid-template-columns:1fr 1fr;
+  }
+}
+
